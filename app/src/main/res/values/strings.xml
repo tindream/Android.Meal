@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Meal</string>
+    <string name="desc_load">Loading</string>
+
+    <string name="nav_home">首页</string>
+    <string name="nav_report">报表</string>
+    <string name="nav_order">订单</string>
+    <string name="nav_my">我的</string>
+    <string name="nav_about">关于</string>
+
+    <string name="btn_conferma">确认</string>
+    <string name="btn_cancel">取消</string>
+    <string name="btn_share">分享</string>
 </resources>
