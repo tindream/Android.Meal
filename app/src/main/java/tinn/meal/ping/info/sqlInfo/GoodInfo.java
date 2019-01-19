@@ -43,6 +43,6 @@ public class GoodInfo extends BaseInfo implements Comparable<BaseInfo>, ILoadSyn
     }
 
     public String getSql() {
-        return "select Id,Index,Name,Price,Quantity from " + getTable();
+        return "select Id,[Index],Name,Price,Quantity from " + getTable();
     }
 }

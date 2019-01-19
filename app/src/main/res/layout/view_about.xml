@@ -27,6 +27,7 @@
         android:id="@+id/id_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="10dp"
         android:text="@string/desc_load"
         android:textAlignment="center"
         android:textSize="@dimen/text16" />

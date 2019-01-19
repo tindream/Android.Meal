@@ -33,6 +33,7 @@ public class MainBaseActivity extends BaseActivity implements ILoadListener {
     public void onReady(LoadInfo info) {
     }
 
+    //横坚屏切换
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);

@@ -58,7 +58,7 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
             case R.id.home_add:
                 View_Ask view_ask = new View_Ask();
                 view_ask.init(getActivity());
-                view_ask.show("Please Comfit Delete Item");
+                view_ask.show("Please Confirm Delete Item");
                 break;
             case R.id.home_btn:
                 Intent intent = new Intent(getActivity(), WebViewActivity.class);

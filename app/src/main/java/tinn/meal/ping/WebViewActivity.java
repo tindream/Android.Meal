@@ -34,6 +34,7 @@ public class WebViewActivity extends ChildActivity {
 
             //wView.loadUrl("file:///android_asset/index.html");
             web.loadUrl(file);
+//            onBackPressed();
 
         } catch (Exception e) {
             Method.log(e);

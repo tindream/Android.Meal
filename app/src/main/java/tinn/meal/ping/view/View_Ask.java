@@ -14,7 +14,7 @@ public class View_Ask extends View_Base {
         TextView textView = view_custom.findViewById(R.id.ask_msg);
         textView.setText(msg);
         textView = view_custom.findViewById(R.id.ask_conferma);
-        textView.setText(R.string.btn_conferma);
+        textView.setText(R.string.btn_confirm);
         textView = view_custom.findViewById(R.id.ask_cancel);
         textView.setText(R.string.btn_cancel);
     }

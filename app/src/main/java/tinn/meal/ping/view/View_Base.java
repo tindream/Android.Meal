@@ -55,7 +55,7 @@ public abstract class View_Base extends ListenerBase {
     }
 
     public void autoSize() {
-        autoSize(70);
+        autoSize(85);
     }
 
     public void autoSize(int rateWeight) {

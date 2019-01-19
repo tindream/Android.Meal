@@ -8,7 +8,7 @@
     <string name="nav_my">我的</string>
     <string name="nav_about">关于</string>
 
-    <string name="btn_conferma">确认</string>
+    <string name="btn_confirm">确认</string>
     <string name="btn_cancel">取消</string>
     <string name="btn_share">分享</string>
 </resources>

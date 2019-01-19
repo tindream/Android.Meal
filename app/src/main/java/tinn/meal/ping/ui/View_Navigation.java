@@ -51,7 +51,7 @@ public class View_Navigation extends LinearLayout implements View.OnClickListene
         int width = (int) paint.measureText((String) textView.getText());
         int navSize = getResources().getDimensionPixelSize(R.dimen.navSize);
         if (navSize > width) width = navSize;
-        int left = Config.display.widthPixels - width * 4 - (int) (Config.display.density * 10);
+        int left = Config.display.widthPixels - width * 4 - (int) (Config.display.density * 4);
         left /= 8;
         int top = (int) (Config.display.density * 3);
         findViewById(R.id.line1).setPadding(left, top, left, top);

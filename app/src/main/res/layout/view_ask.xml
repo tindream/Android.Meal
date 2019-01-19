@@ -25,10 +25,7 @@
         android:id="@+id/ask_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingTop="15dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="20dp"
+        android:padding="15dp"
         android:text="@string/desc_load"
         android:textAlignment="center"
         android:textSize="@dimen/text18" />
@@ -43,12 +40,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/selector_stroke_gold"
+            android:background="@drawable/selector_stroke_cancel"
             android:padding="10dp"
             android:text="@string/btn_cancel"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@color/While"
+            android:textColor="@drawable/selector_fore_while"
             android:textSize="@dimen/text16" />
 
         <TextView
@@ -56,12 +53,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/selector_stroke_primary"
+            android:background="@drawable/selector_stroke_confirm"
             android:padding="10dp"
-            android:text="@string/btn_conferma"
+            android:text="@string/btn_confirm"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@color/While"
+            android:textColor="@drawable/selector_fore_while"
             android:textSize="@dimen/text16" />
     </LinearLayout>
 
