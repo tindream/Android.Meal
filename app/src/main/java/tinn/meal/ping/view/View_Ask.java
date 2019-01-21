@@ -23,7 +23,7 @@ public class View_Ask extends View_Base {
     protected boolean onBtnClick(View v) {
         switch (v.getId()) {
             case R.id.ask_conferma:
-                onListener(LoadType.conferma);
+                onListener(LoadType.confirm);
                 break;
         }
         return super.onBtnClick(v);

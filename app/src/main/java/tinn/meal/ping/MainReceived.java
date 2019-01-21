@@ -10,7 +10,6 @@ import tinn.meal.ping.support.Cache;
 import tinn.meal.ping.support.Method;
 
 public class MainReceived extends MainBaseActivity {
-
     protected void received(String msg) {
         try {
             if (msg.equals("hello,world")) return;

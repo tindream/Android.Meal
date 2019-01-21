@@ -1,17 +1,18 @@
 package tinn.meal.ping.support;
 
 import io.reactivex.ObservableEmitter;
+import tinn.meal.ping.data.SQLiteServer;
+import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
 import tinn.meal.ping.info.loadInfo.TimeInfo;
 
-public class AsyncWait extends AsyncBase {
-    public AsyncWait() {
-        initData(new TimeInfo(0));
+public class AsyncLoad extends AsyncBase {
+    public AsyncLoad() {
+        initData(new LoadInfo(LoadType.local));
     }
 
     @Override
     protected void onLoadData(ObservableEmitter<LoadInfo> emitter, LoadInfo info) throws Exception {
-        Thread.sleep(((TimeInfo) info).onlyTime);
-        emitter.onNext(info);
+        new SQLiteServer().Load(emitter);
     }
 }

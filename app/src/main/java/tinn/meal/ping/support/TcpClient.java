@@ -138,7 +138,7 @@ public class TcpClient extends ListenerBase implements ILoadListener, IObservabl
             case error:
                 ErrorInfo er = (ErrorInfo) info;
                 Cache.addNotified(er.from, info.msg);
-                onListener(LoadType.notificheUpdate);
+                onListener(LoadType.notifiedUpdate);
                 break;
             case received:
                 onListener(new EventInfo(LoadType.received, info.msg));
