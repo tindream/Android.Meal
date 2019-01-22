@@ -28,4 +28,10 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return fragmentList.size();
     }
+
+    //懒加载(一次加载)不销毁Item
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+//        super.destroyItem(container, position, object);
+    }
 }

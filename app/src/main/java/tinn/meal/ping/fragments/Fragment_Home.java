@@ -1,5 +1,6 @@
 package tinn.meal.ping.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -36,6 +37,8 @@ import tinn.meal.ping.view.View_About;
 import tinn.meal.ping.view.View_Ask;
 
 public class Fragment_Home extends Fragment_Base implements View.OnClickListener {
+    private boolean loadComplete;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +54,26 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Load(false);
         getActivity().findViewById(R.id.home_minus).setOnClickListener(this);
         getActivity().findViewById(R.id.home_add).setOnClickListener(this);
         getActivity().findViewById(R.id.home_btn).setOnClickListener(this);
         TextView textView = getActivity().findViewById(R.id.home_text);
         textView.setText(Config.Loading + ">Home");
+    }
+
+    @Override
+    protected void onFragmentVisibleChange(boolean isVisible) {
+        if (isVisible) {
+            //更新界面数据，如果数据还在下载中，就显示加载框
+            Load(loadComplete);
+        } else {
+            //关闭加载框
+        }
+    }
+
+    @Override
+    protected void onFragmentFirstVisible() {
+        //去服务器下载数据
     }
 
     @Override
@@ -84,14 +101,24 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
         }
     }
 
-    public void Load(boolean complete) {
-        LinearLayout home_load = getActivity().findViewById(R.id.home_load);
+    private void Load(boolean complete) {
+        Activity activity = getActivity();
+        if (activity == null) return;
+        LinearLayout home_load = activity.findViewById(R.id.home_load);
+        if (home_load == null) return;
         home_load.setVisibility(complete ? View.GONE : View.VISIBLE);
         if (!complete) {
             ViewGroup.LayoutParams layoutParams = home_load.getLayoutParams();
             layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            TextView textView = getActivity().findViewById(R.id.load_text);
+            textView.setText(Config.Loading);
         }
         getActivity().findViewById(R.id.home_context).setVisibility(complete ? View.VISIBLE : View.GONE);
+    }
+
+    public void complete() {
+        loadComplete = true;
+        Load(true);
     }
 
     public void error(LoadInfo info) {
