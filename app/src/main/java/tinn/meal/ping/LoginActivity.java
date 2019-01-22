@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import tinn.meal.ping.data.SQLiteServer;
 import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.info.eventInfo.ErrorInfo;
@@ -72,6 +73,9 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
             switch (eventInfo.Types) {
                 case Login:
                     LoginEventInfo login = new Gson().fromJson(info.Message, LoginEventInfo.class);
+                    Config.Admin.UserId = login.UserId;
+                    new SQLiteServer().updateAdmin("UserId", Config.Admin.UserId);
+
                     Intent data = new Intent();
                     Bundle bundle = new Bundle();
                     bundle.putString("UserId", login.UserId + "");  //向intent写入数据

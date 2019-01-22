@@ -76,14 +76,10 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.home_minus:
-                View_About view_about = new View_About();
-                view_about.init(getActivity());
-                view_about.show();
+                Method.show(getActivity());
                 break;
             case R.id.home_add:
-                View_Ask view_ask = new View_Ask();
-                view_ask.init(getActivity());
-                view_ask.show("Please Confirm Delete Item");
+                Method.ask(getActivity(), "Please Confirm Delete Item");
                 break;
             case R.id.home_btn:
                 Intent intent = new Intent(getActivity(), WebActivity.class);
@@ -91,8 +87,7 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
                 intent.putExtra("title", "日志");
                 File file = new File(Environment.getExternalStorageDirectory(), "/Meal/log.txt");
                 intent.putExtra("file", "file://" + file.toString());
-                //为了接受SecondActivity中的值，不用startActivity(intent)
-                startActivityForResult(intent, Config.requestCode);
+                startActivity(intent);
                 break;
         }
     }

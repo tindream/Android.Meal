@@ -86,8 +86,6 @@ public class MainBaseActivity extends BaseActivity implements ViewPager.OnPageCh
         if (requestCode == Config.requestCode && resultCode == Config.requestCode) {
             Bundle bundle = data.getExtras();  //取得来自子窗口的数据模块
             String userId = bundle.getString("UserId");
-            Config.Admin.UserId = Long.parseLong(userId);
-            new SQLiteServer().updateAdmin("UserId", Config.Admin.UserId);
             initFragmentsOther();
             onReady(new LoadInfo(LoadType.home));
         }

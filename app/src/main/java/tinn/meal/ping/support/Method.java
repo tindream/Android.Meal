@@ -49,10 +49,12 @@ import java.util.Date;
 import java.util.List;
 
 import tinn.meal.ping.R;
+import tinn.meal.ping.enums.IListener;
 import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.info.loadInfo.ValueInfo;
 import tinn.meal.ping.view.View_About;
 import tinn.meal.ping.view.View_Ask;
+import tinn.meal.ping.view.View_Confirm;
 
 public class Method {
     private static Toast toast;
@@ -165,13 +167,25 @@ public class Method {
         return output;
     }
 
-    public static void ask(String msg, ILoadListener listener) {
+    public static IListener ask(Activity activity, String msg) {
         View_Ask view_ask = new View_Ask();
-        view_ask.init(Config.context);
+        view_ask.init(activity);
         view_ask.show(msg);
-        view_ask.setListener(listener);
+        return view_ask;
     }
 
+    public static IListener confirm(Activity activity, String msg) {
+        View_Confirm view_confirm = new View_Confirm();
+        view_confirm.init(activity);
+        view_confirm.show(msg);
+        return view_confirm;
+    }
+
+    public static void show(Activity activity) {
+        View_About view_about = new View_About();
+        view_about.init(activity);
+        view_about.show();
+    }
     public static void show(Activity activity, String msg) {
         View_About view_about = new View_About();
         view_about.init(activity);

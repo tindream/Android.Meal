@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import tinn.meal.ping.R;
 import tinn.meal.ping.support.Config;
+import tinn.meal.ping.support.Method;
 
 public class View_About extends View_Base {
     public void show() {

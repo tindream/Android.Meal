@@ -7,22 +7,20 @@ import android.widget.TextView;
 import tinn.meal.ping.R;
 import tinn.meal.ping.enums.LoadType;
 
-public class View_Ask extends View_Base {
+public class View_Confirm extends View_Base {
     public void show(String msg) {
         super.showMore();
 
-        TextView textView = view_custom.findViewById(R.id.ask_msg);
+        TextView textView = view_custom.findViewById(R.id.confirm_msg);
         textView.setText(msg);
-        textView = view_custom.findViewById(R.id.ask_confirm);
+        textView = view_custom.findViewById(R.id.confirm_btn);
         textView.setText(R.string.btn_confirm);
-        textView = view_custom.findViewById(R.id.ask_cancel);
-        textView.setText(R.string.btn_cancel);
     }
 
     @Override
     protected boolean onBtnClick(View v) {
         switch (v.getId()) {
-            case R.id.ask_confirm:
+            case R.id.confirm_btn:
                 onListener(LoadType.confirm);
                 break;
         }
@@ -30,6 +28,6 @@ public class View_Ask extends View_Base {
     }
 
     public void init(Activity activity) {
-        super.init(activity, R.layout.view_ask, new int[]{R.id.ask_cancel, R.id.ask_confirm});
+        super.init(activity, R.layout.view_confirm, new int[]{R.id.confirm_btn});
     }
 }

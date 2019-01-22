@@ -1,12 +1,16 @@
 package tinn.meal.ping;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import tinn.meal.ping.enums.LoadType;
+import tinn.meal.ping.info.eventInfo.ErrorInfo;
 import tinn.meal.ping.info.eventInfo.EventInfo;
 import tinn.meal.ping.support.Cache;
+import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.Method;
 
 public class MainReceived extends MainBaseActivity {
@@ -15,18 +19,19 @@ public class MainReceived extends MainBaseActivity {
             if (msg.equals("hello,world")) return;
             EventInfo eventInfo = new Gson().fromJson(msg, EventInfo.class);
             if (eventInfo == null) return;
-            if (!eventInfo.Result) {
-                Cache.addNotified(eventInfo.Types, eventInfo.Message);
-                Method.show(this, eventInfo.Message);
-                return;
-            }
             Cache.addNotified(eventInfo.Types);
             switch (eventInfo.Types) {
-                case Login:
-                    break;
                 case AutoLogin:
-                    ViewPager vp = findViewById(R.id.mainViewPager);
-                    vp.setCurrentItem(0, true);
+                    break;
+                case Error:
+                    ErrorInfo error = new Gson().fromJson(msg, ErrorInfo.class);
+                    if (error.FromTypes == LoadType.AutoLogin) {
+                        Method.confirm(this, error.Message).setListener(obj -> {
+                            Config.Admin.UserId = 0;
+                            Intent intent = new Intent(this, LoginActivity.class);
+                            startActivity(intent);
+                        });
+                    }
                     break;
             }
         } catch (JsonSyntaxException e) {
