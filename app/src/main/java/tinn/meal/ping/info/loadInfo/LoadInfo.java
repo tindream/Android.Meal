@@ -4,33 +4,33 @@ import tinn.meal.ping.enums.LoadType;
 
 public class LoadInfo {
 
-    public LoadType type;
-    public String msg;
+    public LoadType Types;
+    public String Message;
 
     public LoadInfo() {
     }
 
     public LoadInfo(LoadType type) {
-        this.type = type;
+        this.Types = type;
     }
 
     public LoadInfo(LoadType type, String msg) {
         this(type);
-        this.msg = msg;
+        this.Message = msg;
     }
 
     public String getMsg() {
-        String desc = type + "";
-        if (msg != null) {
-            if (type == LoadType.error) desc += "\n";
+        String desc = Types + "";
+        if (Message != null) {
+            if (Types == LoadType.Error) desc += "\n";
             else desc += "\t";
-            desc += msg;
+            desc += Message;
         }
         return desc;
     }
 
     @Override
     public String toString() {
-        return type + "=>" + getMsg();
+        return Types + "=>" + getMsg();
     }
 }

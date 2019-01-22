@@ -19,7 +19,7 @@ import tinn.meal.ping.enums.IObservableListener;
 import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.info.eventInfo.EventInfo;
 import tinn.meal.ping.info.eventInfo.LoginAutoEventInfo;
-import tinn.meal.ping.info.loadInfo.ErrorInfo;
+import tinn.meal.ping.info.eventInfo.ErrorInfo;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
 import tinn.meal.ping.info.loadInfo.SendInfo;
 
@@ -39,14 +39,14 @@ public class TcpClient extends ListenerBase implements ILoadListener, IObservabl
     }
 
     public void send(EventInfo info) {
-        new AsyncAdapter().setListener(this, this).init(new SendInfo(info.type, new Gson().toJson(info)));
+        new AsyncAdapter().setListener(this, this).init(new SendInfo(info.Types, new Gson().toJson(info)));
     }
 
     private void sendTo(ObservableEmitter<LoadInfo> emitter, SendInfo info) {
         try {
             if (!socket.isConnected()) throw new SQLException("未连接");
-            byte[] buffer = info.msg.getBytes("utf-8");
-            Method.log("发送数据：" + info.msg);
+            byte[] buffer = info.Message.getBytes("utf-8");
+            Method.log("发送数据：" + info.Message);
             //Socket输出流
             buffer = getSendData(buffer);
             OutputStream outputStream = socket.getOutputStream();
@@ -74,14 +74,14 @@ public class TcpClient extends ListenerBase implements ILoadListener, IObservabl
 
     @Override
     public void onReady(ObservableEmitter<LoadInfo> emitter, LoadInfo info) throws Exception {
-        switch (info.type) {
+        switch (info.Types) {
             case connect:
                 try {
                     socket = new Socket();
                     socket.connect(new InetSocketAddress(Config.Admin.Host, Config.Admin.Port), 3000);
                     if (!socket.isConnected()) throw new SQLException("连接失败");
                     Method.log("socket连接成功");
-                    emitter.onNext(new LoadInfo(LoadType.loginAuto));
+                    emitter.onNext(new LoadInfo(LoadType.connected));
                     received(emitter);
                 } catch (Exception e) {
                     Thread.sleep(125);
@@ -122,26 +122,26 @@ public class TcpClient extends ListenerBase implements ILoadListener, IObservabl
 
     @Override
     public void onReady(LoadInfo info) {
-        switch (info.type) {
+        switch (info.Types) {
             case connect:
                 onListener(info);
                 connect();
                 break;
-            case loginAuto:
-                onListener(info);
-                send(new LoginAutoEventInfo());
+            case connected:
+                if (Config.Admin.UserId > 0)
+                    send(new LoginAutoEventInfo());
                 break;
             case complete:
                 Method.log("Sending...");
                 Method.hit("Sending...");
                 break;
-            case error:
+            case Error:
                 ErrorInfo er = (ErrorInfo) info;
-                Cache.addNotified(er.from, info.msg);
+                Cache.addNotified(er.FromTypes, info.Message);
                 onListener(LoadType.notifiedUpdate);
                 break;
             case received:
-                onListener(new EventInfo(LoadType.received, info.msg));
+                onListener(new EventInfo(LoadType.received, info.Message));
                 break;
         }
     }

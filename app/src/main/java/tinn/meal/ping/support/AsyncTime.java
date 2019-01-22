@@ -16,7 +16,7 @@ public class AsyncTime extends AsyncBase {
 
     @Override
     protected void onLoadData(ObservableEmitter<LoadInfo> emitter, LoadInfo info) throws Exception {
-        switch (info.type) {
+        switch (info.Types) {
             case time:
                 TimeInfo timeInfo = (TimeInfo) info;
                 emitter.onNext(new TimeInfo(LoadType.timeStart));
@@ -37,7 +37,7 @@ public class AsyncTime extends AsyncBase {
 
     @Override
     protected void onCallUI(LoadInfo info) {
-        switch (info.type) {
+        switch (info.Types) {
             case time:
                 TimeInfo timeInfo = (TimeInfo) info;
                 ((TextView) timeInfo.view).setText(timeInfo.getTimes());

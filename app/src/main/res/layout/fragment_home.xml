@@ -18,16 +18,16 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:text="@string/desc_load"
-            android:textSize="@dimen/text18"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="@dimen/text18" />
 
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/home_context"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/home_context">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/home_text"
@@ -67,12 +67,11 @@
             android:paddingTop="7dp"
             android:paddingRight="50dp"
             android:paddingBottom="7dp"
-            android:text="Enter"
+            android:text="@string/btn_login"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/While"
-            android:textSize="@dimen/text18"
-            android:textStyle="bold" />
+            android:textSize="@dimen/text18" />
 
     </LinearLayout>
 

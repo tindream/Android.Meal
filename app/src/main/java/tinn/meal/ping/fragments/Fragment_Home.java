@@ -1,8 +1,6 @@
 package tinn.meal.ping.fragments;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -16,28 +14,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.File;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import tinn.meal.ping.R;
-import tinn.meal.ping.WebViewActivity;
-import tinn.meal.ping.enums.ILoadListener;
-import tinn.meal.ping.enums.IObservableListener;
-import tinn.meal.ping.enums.LoadType;
+import tinn.meal.ping.WebActivity;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
-import tinn.meal.ping.support.AsyncAdapter;
-import tinn.meal.ping.support.AsyncLoad;
-import tinn.meal.ping.support.AsyncTime;
-import tinn.meal.ping.support.Cache;
 import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.Method;
 import tinn.meal.ping.view.View_About;
 import tinn.meal.ping.view.View_Ask;
 
 public class Fragment_Home extends Fragment_Base implements View.OnClickListener {
-    private boolean loadComplete;
+    private boolean isFirstVisible;
+    private boolean isComplete;
+    private LoadInfo error;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,16 +53,23 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         if (isVisible) {
+            if (!isFirstVisible) {
+                isFirstVisible = true;
+                Load(isComplete);
+                if (error != null) {
+                    error(error);
+                    error = null;
+                }
+            }
             //更新界面数据，如果数据还在下载中，就显示加载框
-            Load(loadComplete);
         } else {
             //关闭加载框
         }
     }
 
+    //去服务器下载数据
     @Override
     protected void onFragmentFirstVisible() {
-        //去服务器下载数据
     }
 
     @Override
@@ -90,22 +86,23 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
                 view_ask.show("Please Confirm Delete Item");
                 break;
             case R.id.home_btn:
-                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                Intent intent = new Intent(getActivity(), WebActivity.class);
                 //将text框中的值传入
                 intent.putExtra("title", "日志");
                 File file = new File(Environment.getExternalStorageDirectory(), "/Meal/log.txt");
                 intent.putExtra("file", "file://" + file.toString());
-                //为了接受SecondActivity中的值，不用startAcitivity(intent)
-                startActivityForResult(intent, 1000);
+                //为了接受SecondActivity中的值，不用startActivity(intent)
+                startActivityForResult(intent, Config.requestCode);
                 break;
         }
     }
 
-    private void Load(boolean complete) {
-        Activity activity = getActivity();
-        if (activity == null) return;
-        LinearLayout home_load = activity.findViewById(R.id.home_load);
-        if (home_load == null) return;
+    public void Load(boolean complete) {
+        if (!isFirstVisible) {
+            isComplete = complete;
+            return;
+        }
+        LinearLayout home_load = getActivity().findViewById(R.id.home_load);
         home_load.setVisibility(complete ? View.GONE : View.VISIBLE);
         if (!complete) {
             ViewGroup.LayoutParams layoutParams = home_load.getLayoutParams();
@@ -116,18 +113,17 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
         getActivity().findViewById(R.id.home_context).setVisibility(complete ? View.VISIBLE : View.GONE);
     }
 
-    public void complete() {
-        loadComplete = true;
-        Load(true);
-    }
-
     public void error(LoadInfo info) {
+        if (!isFirstVisible) {
+            this.error = info;
+            return;
+        }
         TextView textView = getActivity().findViewById(R.id.load_text);
-        String desc = info.type + "\n" + info.msg;
+        String desc = info.Types + "\n" + info.Message;
         int end = desc.indexOf("\n");
         int color = getActivity().getColor(R.color.colorRed);
         SpannableString span = new SpannableString(desc);
         span.setSpan(new ForegroundColorSpan(color), 0, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textView.setText(span); //更新UI
+        textView.setText(span);
     }
 }

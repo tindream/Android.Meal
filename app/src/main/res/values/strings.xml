@@ -11,4 +11,11 @@
     <string name="btn_confirm">确认</string>
     <string name="btn_cancel">取消</string>
     <string name="btn_share">分享</string>
+    <string name="btn_login">登陆</string>
+
+
+    <string name="lb_user">用户</string>
+    <string name="lb_pad">密码</string>
+    <string name="lb_userHint">请输入用户名称</string>
+    <string name="lb_padHint">请输入用户密码</string>
 </resources>

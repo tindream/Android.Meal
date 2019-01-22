@@ -15,16 +15,16 @@ public class MainReceived extends MainBaseActivity {
             if (msg.equals("hello,world")) return;
             EventInfo eventInfo = new Gson().fromJson(msg, EventInfo.class);
             if (eventInfo == null) return;
-            if (!eventInfo.result) {
-                Cache.addNotified(eventInfo.type, eventInfo.msg);
-                Method.show(eventInfo.msg);
+            if (!eventInfo.Result) {
+                Cache.addNotified(eventInfo.Types, eventInfo.Message);
+                Method.show(this, eventInfo.Message);
                 return;
             }
-            Cache.addNotified(eventInfo.type);
-            switch (eventInfo.type) {
-                case login:
+            Cache.addNotified(eventInfo.Types);
+            switch (eventInfo.Types) {
+                case Login:
                     break;
-                case loginAuto:
+                case AutoLogin:
                     ViewPager vp = findViewById(R.id.mainViewPager);
                     vp.setCurrentItem(0, true);
                     break;

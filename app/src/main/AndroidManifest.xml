@@ -21,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="tinn.meal.ping.WebViewActivity"></activity>
+        <activity android:name="tinn.meal.ping.WebActivity"></activity>
+        <activity android:name="tinn.meal.ping.LoginActivity"></activity>
     </application>
 
 </manifest>

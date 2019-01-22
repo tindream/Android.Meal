@@ -2,34 +2,77 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorGray"
     android:gravity="center_vertical"
-    android:padding="15dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="15dp">
 
-    <TextView
-        android:id="@+id/load_text"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:text="@string/desc_load"
-        android:textAlignment="center" />
+        android:background="@color/colorGray"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="sans-serif"
+            android:minWidth="70dp"
+            android:paddingLeft="10dp"
+            android:text="@string/lb_user"
+            android:textSize="@dimen/text16" />
+
+        <EditText
+            android:id="@+id/login_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/lb_userHint"
+            android:inputType="textPersonName"
+            android:paddingLeft="80dp"
+            android:theme="@style/MyEditText" />
+
+    </FrameLayout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorGray"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="sans-serif"
+            android:minWidth="70dp"
+            android:paddingLeft="10dp"
+            android:text="@string/lb_pad"
+            android:textSize="@dimen/text16" />
+
+        <EditText
+            android:id="@+id/login_pad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/lb_padHint"
+            android:inputType="textPassword"
+            android:paddingLeft="80dp"
+            android:theme="@style/MyEditText" />
+
+    </FrameLayout>
 
     <TextView
-        android:id="@+id/home_btn"
+        android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/selector_stroke_radiu_primary"
-        android:paddingLeft="50dp"
-        android:paddingTop="7dp"
-        android:paddingRight="50dp"
-        android:paddingBottom="7dp"
-        android:text="Enter"
+        android:padding="11dp"
+        android:text="@string/btn_login"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/While"
-        android:textSize="@dimen/text18"
-        android:textStyle="bold" />
+        android:textSize="@dimen/text18" />
 
 </LinearLayout>

@@ -1,8 +1,10 @@
 package tinn.meal.ping;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
@@ -14,7 +16,9 @@ import android.widget.PopupWindow;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
+import tinn.meal.ping.data.SQLiteServer;
 import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.fragments.Fragment_Home;
@@ -76,22 +80,41 @@ public class MainBaseActivity extends BaseActivity implements ViewPager.OnPageCh
         vp.getAdapter().notifyDataSetChanged();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Config.requestCode && resultCode == Config.requestCode) {
+            Bundle bundle = data.getExtras();  //取得来自子窗口的数据模块
+            String userId = bundle.getString("UserId");
+            Config.Admin.UserId = Long.parseLong(userId);
+            new SQLiteServer().updateAdmin("UserId", Config.Admin.UserId);
+            initFragmentsOther();
+            onReady(new LoadInfo(LoadType.home));
+        }
+    }
+
     protected void onReadyBase(LoadInfo info) {
-        switch (info.type) {
+        switch (info.Types) {
             case load:
                 Config.load();
                 Config.client.setListener(this);
-                initFragmentsOther();
-                onReady(new LoadInfo(LoadType.home));
+                if (Config.Admin.UserId == 0) {
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    //为了接受SecondActivity中的值，不用startActivity(intent)
+                    startActivityForResult(intent, Config.requestCode);
+                } else {
+                    initFragmentsOther();
+                    onReady(new LoadInfo(LoadType.home));
+                }
                 break;
-            case error:
+            case Error:
                 Fragment_Home fragment_home = (Fragment_Home) fragmentList.get(0);
                 fragment_home.error(info);
                 break;
             case complete:
                 onReady(new LoadInfo(LoadType.home));
                 fragment_home = (Fragment_Home) fragmentList.get(0);
-                fragment_home.complete();
+                fragment_home.Load(true);
                 break;
         }
     }

@@ -5,14 +5,12 @@ import java.util.Date;
 
 import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
-import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.Method;
 
 public class EventInfo extends LoadInfo {
 
-    public long tableId;
+    public boolean Result;
     public Date date;
-    public boolean result;
 
     public EventInfo() {
         this.date = new Date();
@@ -20,19 +18,19 @@ public class EventInfo extends LoadInfo {
 
     public EventInfo(LoadType type) {
         this();
-        this.type = type;
+        this.Types = type;
     }
 
     public EventInfo(LoadType type, String msg) {
         this(type);
-        this.msg = msg;
+        this.Message = msg;
     }
 
     @Override
     public String getMsg() {
         String desc = "";
-        if (!Method.isEmpty(msg)) desc += msg;
-        else desc += type;
+        if (!Method.isEmpty(Message)) desc += Message;
+        else desc += Types;
         return desc;
     }
 

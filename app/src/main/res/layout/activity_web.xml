@@ -15,7 +15,6 @@
         app:contentInsetStartWithNavigation="0dp"
         app:navigationIcon="@drawable/ic_back_while"
         app:title="@string/app_name"
-        app:titleTextAppearance="@style/ToolbarTitleSize"
         app:titleTextColor="@color/While" />
 
     <WebView

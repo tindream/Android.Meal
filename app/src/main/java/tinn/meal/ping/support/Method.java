@@ -172,9 +172,9 @@ public class Method {
         view_ask.setListener(listener);
     }
 
-    public static void show(String msg) {
+    public static void show(Activity activity, String msg) {
         View_About view_about = new View_About();
-        view_about.init(Config.context);
+        view_about.init(activity);
         view_about.show(msg);
     }
 

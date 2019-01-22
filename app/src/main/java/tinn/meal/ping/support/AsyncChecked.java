@@ -1,8 +1,5 @@
 package tinn.meal.ping.support;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-
 import io.reactivex.ObservableEmitter;
 import tinn.meal.ping.data.SQLServer;
 import tinn.meal.ping.info.eventInfo.VersionEventInfo;
@@ -15,7 +12,7 @@ public class AsyncChecked extends AsyncBase {
 
     @Override
     protected void onLoadData(ObservableEmitter<LoadInfo> emitter, LoadInfo info) throws Exception {
-        switch (info.type) {
+        switch (info.Types) {
             case checkVersion:
                 if (Config.checking) {
                     Method.log("checking...");

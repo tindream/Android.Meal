@@ -28,11 +28,10 @@ public class SQLiteServer {
     }
 
     public void Load(ObservableEmitter<LoadInfo> emitter) throws Exception {
-        emitter.onNext(new LoadInfo(LoadType.local));
         loadAdmin();
         loadUpdate();
-        Thread.sleep(1000);
         emitter.onNext(new LoadInfo(LoadType.load));
+        Thread.sleep(1000);
         Cache.GoodList = queryList(GoodInfo.class, new GoodInfo().getSql());
         Cache.GoodList.sort(Comparator.naturalOrder());
         Method.log("Load本地完成");

@@ -11,7 +11,7 @@ public class AdapterInfo extends LoadInfo {
     public List list;
 
     public AdapterInfo(MyAdapter adapter) {
-        this.type = LoadType.setAdapter;
+        this.Types = LoadType.setAdapter;
         this.adapter = adapter;
     }
 

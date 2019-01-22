@@ -8,7 +8,7 @@
         <!--状态栏底色-->
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <!--按钮选中或者点击获得焦点后的颜色-->
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
     <style name="dialogStyle" parent="@android:style/Theme.Dialog">
@@ -26,8 +26,9 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-    <style name="ToolbarTitleSize" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">18sp</item>
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/colorGrayBlack</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 
 </resources>

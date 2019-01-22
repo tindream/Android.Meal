@@ -4,12 +4,13 @@ import tinn.meal.ping.enums.LoadType;
 
 public class LoginEventInfo extends EventInfo {
 
-    public String user;
-    public String pwd;
+    public long UserId;
+    public String Name;
+    public String Pad;
 
-    public LoginEventInfo(String user, String pwd) {
-        this.type = LoadType.login;
-        this.user = user;
-        this.pwd = pwd;
+    public LoginEventInfo(String name, String pad) {
+        this.Types = LoadType.Login;
+        this.Name = name;
+        this.Pad = pad;
     }
 }

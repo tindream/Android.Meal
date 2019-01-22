@@ -9,10 +9,10 @@ import android.webkit.WebView;
 import tinn.meal.ping.support.Method;
 import tinn.meal.ping.ui.ChildActivity;
 
-public class WebViewActivity extends ChildActivity {
+public class WebActivity extends ChildActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.layoutResID = R.layout.activity_webview;
+        super.layoutResID = R.layout.activity_web;
         super.onCreate(savedInstanceState);
         try {
             String title = getIntent().getStringExtra("title");
@@ -34,7 +34,6 @@ public class WebViewActivity extends ChildActivity {
 
             //wView.loadUrl("file:///android_asset/index.html");
             web.loadUrl(file);
-//            onBackPressed();
 
         } catch (Exception e) {
             Method.log(e);

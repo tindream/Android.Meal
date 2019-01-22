@@ -141,32 +141,6 @@ public class SQLServer {
     private void loadAdmin(SQLiteServer localServer, List<AdminBaseInfo> list) {
         for (AdminBaseInfo info : list) {
             switch (info.Name) {
-                case "AllowSelfPeople":
-                    if (Config.Admin.AllowSelfPeople != Boolean.parseBoolean(info.Value)) {
-                        Config.Admin.AllowSelfPeople = Boolean.parseBoolean(info.Value);
-                        localServer.updateAdmin("AllowSelfPeople", Config.Admin.AllowSelfPeople);
-                    }
-                    break;
-                case "PhoneLimitTime":
-                    long value = Long.parseLong(info.Value) / 1000 / 10;
-                    if (Config.Admin.PhoneLimitTime != value) {
-                        Config.Admin.PhoneLimitTime = value;
-                        localServer.updateAdmin("PhoneLimitTime", Config.Admin.PhoneLimitTime);
-                    }
-                    break;
-                case "TableLimitTime":
-                    value = Long.parseLong(info.Value) / 1000 / 10;
-                    if (Config.Admin.TableLimitTime != value) {
-                        Config.Admin.TableLimitTime = value;
-                        localServer.updateAdmin("TableLimitTime", Config.Admin.TableLimitTime);
-                    }
-                    break;
-                case "MaxQuantity":
-                    if (Config.Admin.MaxQuantity != Integer.parseInt(info.Value)) {
-                        Config.Admin.MaxQuantity = Integer.parseInt(info.Value);
-                        localServer.updateAdmin("MaxQuantity", Config.Admin.MaxQuantity);
-                    }
-                    break;
                 case "BatteryPercent":
                     if (Config.Admin.BatteryPercent != Integer.parseInt(info.Value)) {
                         Config.Admin.BatteryPercent = Integer.parseInt(info.Value);
@@ -243,7 +217,7 @@ public class SQLServer {
         Class.forName("net.sourceforge.jtds.jdbc.Driver");//加载驱动换成这个
         String connectDB = "jdbc:jtds:sqlserver://" + Config.Admin.Host + ":1433/" + Config.Admin.DbName +// 连接字符串换成这个
                 ";useunicode=true;characterEncoding=UTF-8";//防止中文乱码
-        Connection con = DriverManager.getConnection(connectDB, Config.Admin.User, Config.Admin.Pwd);// 连接数据库对象
+        Connection con = DriverManager.getConnection(connectDB, Config.Admin.UserName, Config.Admin.UserPwd);// 连接数据库对象
         Method.log("连接数据库成功");
         return con;
     }

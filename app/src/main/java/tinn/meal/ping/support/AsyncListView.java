@@ -56,7 +56,7 @@ public class AsyncListView extends AsyncBase {
 
     @Override
     protected void onCallUI(LoadInfo info) {
-        switch (info.type) {
+        switch (info.Types) {
             case setText:
                 HolderInfo holder = ((LoaderInfo) info).holderInfo;
                 holder.viewHolder.setText(holder.id, holder.msg);

@@ -2,7 +2,6 @@ package tinn.meal.ping.enums;
 
 public enum LoadType {
     none,
-    error,
 
     setText,
     setImage,
@@ -16,6 +15,7 @@ public enum LoadType {
     load,
     complete,
     connect,
+    connected,
     data,
     image,
     progress,
@@ -30,15 +30,16 @@ public enum LoadType {
     notified,
     notifiedUpdate,
 
-    battery,
     confirm,
 
     wait,
-    login,
-    loginAuto,
     checkVersion,
     sync,
     share,
     send,
     received,
+
+    Error,
+    Login,
+    AutoLogin,
 }

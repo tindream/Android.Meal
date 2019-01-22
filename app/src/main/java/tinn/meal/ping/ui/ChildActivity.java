@@ -1,7 +1,6 @@
 package tinn.meal.ping.ui;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -40,7 +39,7 @@ public class ChildActivity extends AppCompatActivity {
             return ((EditText) view).getText().toString();
         }
         if (view instanceof Spinner) {
-            return ((LoadInfo) ((Spinner) view).getSelectedItem()).msg;
+            return ((LoadInfo) ((Spinner) view).getSelectedItem()).Message;
         }
         return null;
     }

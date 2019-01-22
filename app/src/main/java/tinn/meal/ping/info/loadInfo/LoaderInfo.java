@@ -8,7 +8,7 @@ public class LoaderInfo extends LoadInfo {
     public HolderInfo holderInfo;
 
     public LoaderInfo(LoadType type, HolderInfo holderInfo) {
-        this.type = type;
+        this.Types = type;
         this.holderInfo = holderInfo;
     }
 }

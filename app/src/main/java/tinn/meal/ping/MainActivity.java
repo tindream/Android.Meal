@@ -31,7 +31,7 @@ public class MainActivity extends MainReceived {
     public void onReady(LoadInfo info) {
         onReadyBase(info);
         ViewPager vp = findViewById(R.id.mainViewPager);
-        switch (info.type) {
+        switch (info.Types) {
             case home:
                 vp.setCurrentItem(0, true);
                 break;
@@ -45,16 +45,16 @@ public class MainActivity extends MainReceived {
                 vp.setCurrentItem(3, true);
                 break;
             case received:
-                received(info.msg);
+                received(info.Message);
                 break;
         }
-        switch (info.type) {
+        switch (info.Types) {
             case home:
             case report:
             case order:
             case my:
                 View_Navigation navigation = findViewById(R.id.view_Navigation);
-                navigation.onClick(info.type);
+                navigation.onClick(info.Types);
                 break;
         }
     }

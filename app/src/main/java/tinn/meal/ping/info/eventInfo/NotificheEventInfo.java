@@ -15,23 +15,23 @@ public class NotificheEventInfo extends EventInfo {
 
     public NotificheEventInfo(LoadType type) {
         super(type);
-        this.msg = "success";
+        this.Message = "success";
     }
 
     public NotificheEventInfo(LoadType from, String msg) {
-        super(LoadType.error);
+        super(LoadType.Error);
         this.from = from;
-        this.msg = msg;
+        this.Message = msg;
     }
 
     @Override
     public String getMsg() {
         String desc = "";
-        if (type == LoadType.error) {
-            desc += from + " " + type;
+        if (Types == LoadType.Error) {
+            desc += from + " " + Types;
         } else {
-            desc += type;
-            if (!Method.isEmpty(msg)) desc += " " + msg;
+            desc += Types;
+            if (!Method.isEmpty(Message)) desc += " " + Message;
         }
         return desc;
     }

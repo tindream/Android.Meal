@@ -6,7 +6,7 @@ import android.os.Message;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import tinn.meal.ping.info.loadInfo.ErrorInfo;
+import tinn.meal.ping.info.eventInfo.ErrorInfo;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
 
 public abstract class AsyncBase extends ListenerBase {
@@ -20,7 +20,7 @@ public abstract class AsyncBase extends ListenerBase {
                     onLoadData(emitter, info);
                 } catch (Exception e) {
                     Method.log("Load Error=>", e);
-                    emitter.onNext(new ErrorInfo(info.type, e.getMessage()));
+                    emitter.onNext(new ErrorInfo(info.Types, e.getMessage()));
                 }
             }).start()).subscribe(info1 -> {
                 Message m = new Message();

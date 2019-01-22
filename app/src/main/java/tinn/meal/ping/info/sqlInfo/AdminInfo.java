@@ -7,25 +7,19 @@ import tinn.meal.ping.support.Config;
 
 public class AdminInfo {
     public final static String DbName = "dininglc";
-    public final static int Port = 8084;
+    public final static int Port = 8087;
 
     public int Version = 0;
-    public String Host = "127.0.0.1";
-    public String User = "meiling";
-    public String Pwd = "meiling";
+    public String Host = "47.254.135.116";
+    public String UserName = "meiling";
+    public String UserPwd = "meiling";
+
+    public long UserId;
+    public int UserType;
 
     //同步pc设置
     //更新比较
     public long UpdateVersion;
-
-    //允许自助人数
-    public boolean AllowSelfPeople;
-    //设备自助限制时间
-    public long PhoneLimitTime;
-    //餐桌自助限制时间
-    public long TableLimitTime;
-    //单人最大自助点菜数量
-    public int MaxQuantity;
     ///报警电量值
     public int BatteryPercent;
 }
