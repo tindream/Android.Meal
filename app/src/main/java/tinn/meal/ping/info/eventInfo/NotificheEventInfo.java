@@ -6,12 +6,6 @@ import tinn.meal.ping.support.Method;
 public class NotificheEventInfo extends EventInfo {
 
     public LoadType from;
-    public boolean iRead;
-
-    public NotificheEventInfo(LoadType type, boolean iRead) {
-        super(type);
-        this.iRead = iRead;
-    }
 
     public NotificheEventInfo(LoadType type) {
         super(type);

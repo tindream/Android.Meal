@@ -39,7 +39,7 @@ public class View_Navigation extends LinearLayout implements View.OnClickListene
     public View_Navigation(Context context, AttributeSet attrs) {
         super(context, attrs);
         addView(View.inflate(context, R.layout.view_navigation, null));
-        mPaint.setColor(context.getColor(R.color.colorGrayDark));
+        mPaint.setColor(context.getColor(R.color.colorGrayBlack));
 
         findViewById(R.id.line1).setOnClickListener(this);
         findViewById(R.id.line2).setOnClickListener(this);

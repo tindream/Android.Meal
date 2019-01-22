@@ -39,10 +39,8 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                 window.setStatusBarColor(getColor(R.color.colorGray));
             }
-            TextView login_user = findViewById(R.id.login_user);
-            login_user.setText("1");
-            TextView login_pad = findViewById(R.id.login_pad);
-            login_pad.setText("1");
+            setValue(R.id.login_user, "1");
+            setValue(R.id.login_pad, "1");
         } catch (Exception e) {
             Method.log(e);
         }
@@ -53,10 +51,8 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_btn:
-                TextView login_user = findViewById(R.id.login_user);
-                String user = login_user.getText().toString();
-                TextView login_pad = findViewById(R.id.login_pad);
-                String pad = login_pad.getText().toString();
+                String user = getValue(R.id.login_user);
+                String pad = getValue(R.id.login_pad);
                 Config.client.send(new LoginEventInfo(user, Method.EncryptMD5(pad + Config.Suffix)));
                 TextView btn = findViewById(R.id.login_btn);
                 btn.setText(Config.Loading);

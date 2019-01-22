@@ -8,7 +8,7 @@ import tinn.meal.ping.info.loadInfo.TimeInfo;
 
 public class AsyncLoad extends AsyncBase {
     public AsyncLoad() {
-        initData(new LoadInfo(LoadType.local));
+        initData(new LoadInfo());
     }
 
     @Override

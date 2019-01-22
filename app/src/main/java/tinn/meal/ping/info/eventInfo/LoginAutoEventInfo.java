@@ -6,12 +6,12 @@ import tinn.meal.ping.support.Method;
 
 public class LoginAutoEventInfo extends EventInfo {
 
-    public String mac;
+    public String Mac;
     public long UserId;
 
     public LoginAutoEventInfo() {
         this.Types = LoadType.AutoLogin;
-        this.mac = Method.getMac();
+        this.Mac = Method.getMac();
         this.UserId = Config.Admin.UserId;
     }
 }

@@ -80,7 +80,7 @@ public class Method {
 
     // 調用系統方法分享文件
     public static void shareFile(Context context) {
-        File file = new File(Environment.getExternalStorageDirectory(), "/MerinH/log.txt");
+        File file = new File(Environment.getExternalStorageDirectory(), "/Meal/log.txt");
         if (file.exists()) {
             Intent share = new Intent(Intent.ACTION_SEND);
             share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
@@ -186,6 +186,7 @@ public class Method {
         view_about.init(activity);
         view_about.show();
     }
+
     public static void show(Activity activity, String msg) {
         View_About view_about = new View_About();
         view_about.init(activity);
