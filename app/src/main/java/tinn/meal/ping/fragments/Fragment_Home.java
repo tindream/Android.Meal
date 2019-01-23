@@ -10,6 +10,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -88,6 +89,12 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
                 GridView gridView = getActivity().findViewById(R.id.gridView1);
                 //设置listView的Adapter
                 gridView.setAdapter(((AdapterInfo) info).adapter);
+                gridView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
+                    //我们需要的内容，跳转页面或显示详细信息
+                    GridInfo gridInfo = (GridInfo) ((AdapterInfo) info).list.get(position);
+                    TextView grid_name = view.findViewById(R.id.grid_name);
+                    Method.log(grid_name.getText() + "," + gridInfo.Message);
+                });
                 break;
         }
     }

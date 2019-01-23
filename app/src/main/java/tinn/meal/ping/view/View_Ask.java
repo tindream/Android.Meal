@@ -23,6 +23,9 @@ public class View_Ask extends View_Base {
     @Override
     protected boolean onBtnClick(View v) {
         switch (v.getId()) {
+            case R.id.ask_cancel:
+                onListener(LoadType.cancel);
+                break;
             case R.id.ask_confirm:
                 onListener(LoadType.confirm);
                 break;

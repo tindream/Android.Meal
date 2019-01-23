@@ -1,5 +1,6 @@
 package tinn.meal.ping.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
@@ -8,6 +9,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,7 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.ObservableEmitter;
+import tinn.meal.ping.LoginActivity;
 import tinn.meal.ping.R;
+import tinn.meal.ping.data.SQLiteServer;
 import tinn.meal.ping.enums.IListListener;
 import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.enums.LoadType;
@@ -31,7 +35,9 @@ import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.Method;
 import tinn.meal.ping.support.ViewHolder;
 
-public class Fragment_My extends Fragment_Base implements View.OnClickListener, View.OnLongClickListener, IListListener, ILoadListener {
+import static java.lang.System.exit;
+
+public class Fragment_My extends Fragment_Base implements View.OnClickListener, IListListener, ILoadListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -96,13 +102,33 @@ public class Fragment_My extends Fragment_Base implements View.OnClickListener, 
                 ListView listView = getActivity().findViewById(R.id.my_listView);
                 //设置listView的Adapter
                 listView.setAdapter(((AdapterInfo) info).adapter);
+                listView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
+                    //我们需要的内容，跳转页面或显示详细信息
+                    SetInfo setInfo = (SetInfo) ((AdapterInfo) info).list.get(position);
+                    TextView set_name = view.findViewById(R.id.set_name);
+                    Method.log(set_name.getText() + "," + setInfo.Message);
+                    switch (setInfo.Message) {
+                        case "退出":
+                            Method.ask(getActivity(), "Confirm Logout").setListener(obj -> {
+                                if (obj.Types == LoadType.confirm) {
+                                    Config.Admin.UserId = 0;
+                                    new SQLiteServer().updateAdmin("UserId", Config.Admin.UserId);
+                                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
+                            break;
+                        case "关闭":
+                            Method.ask(getActivity(), "Confirm Close").setListener(obj -> {
+                                if (obj.Types == LoadType.confirm) {
+                                    System.exit(0);
+                                }
+                            });
+                            break;
+                    }
+                });
                 break;
         }
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        return false;
     }
 
     @Override

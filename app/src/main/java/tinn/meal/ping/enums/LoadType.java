@@ -31,6 +31,7 @@ public enum LoadType {
     notified,
     notifiedUpdate,
 
+    cancel,
     confirm,
 
     wait,
