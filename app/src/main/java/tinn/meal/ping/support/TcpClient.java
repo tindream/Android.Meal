@@ -19,7 +19,7 @@ import tinn.meal.ping.enums.IObservableListener;
 import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.info.eventInfo.EventInfo;
 import tinn.meal.ping.info.eventInfo.LoginAutoEventInfo;
-import tinn.meal.ping.info.eventInfo.ErrorInfo;
+import tinn.meal.ping.info.eventInfo.ErrorEventInfo;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
 import tinn.meal.ping.info.loadInfo.SendInfo;
 
@@ -55,7 +55,7 @@ public class TcpClient extends ListenerBase implements ILoadListener, IObservabl
             emitter.onNext(new LoadInfo(LoadType.complete));
         } catch (Exception e) {
             Method.log(e);
-            emitter.onNext(new ErrorInfo(info.from, e.getMessage()));
+            emitter.onNext(new ErrorEventInfo(info.from, e.getMessage()));
         }
     }
 
@@ -136,7 +136,7 @@ public class TcpClient extends ListenerBase implements ILoadListener, IObservabl
                 Method.hit("Sending...");
                 break;
             case Error:
-                ErrorInfo er = (ErrorInfo) info;
+                ErrorEventInfo er = (ErrorEventInfo) info;
                 Cache.addNotified(er.FromTypes, info.Message);
                 onListener(LoadType.notifiedUpdate);
                 break;

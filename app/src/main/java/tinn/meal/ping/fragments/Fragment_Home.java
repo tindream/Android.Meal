@@ -25,17 +25,14 @@ import tinn.meal.ping.WebActivity;
 import tinn.meal.ping.enums.IListListener;
 import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.enums.LoadType;
-import tinn.meal.ping.info.HolderInfo;
-import tinn.meal.ping.info.loadInfo.AdapterInfo;
+import tinn.meal.ping.info.setInfo.AdapterInfo;
 import tinn.meal.ping.info.loadInfo.GridInfo;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
-import tinn.meal.ping.info.loadInfo.LoaderInfo;
+import tinn.meal.ping.info.setInfo.LoaderInfo;
 import tinn.meal.ping.support.AsyncListView;
 import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.Method;
 import tinn.meal.ping.support.ViewHolder;
-import tinn.meal.ping.view.View_About;
-import tinn.meal.ping.view.View_Ask;
 
 public class Fragment_Home extends Fragment_Base implements View.OnClickListener, IListListener, ILoadListener {
     private boolean isFirstVisible;
@@ -75,11 +72,8 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
         if (!(object instanceof GridInfo)) return;
         GridInfo obj = (GridInfo) object;
 
-        HolderInfo info = new HolderInfo(holder, R.id.grid_name, obj.Message);
-        emitter.onNext(new LoaderInfo(LoadType.setText, info));
-
-        info = new HolderInfo(holder, R.id.grid_img, obj.imageId);
-        emitter.onNext(new LoaderInfo(LoadType.setImageId, info));
+        emitter.onNext(new LoaderInfo(LoadType.setText, holder, R.id.grid_name, obj.Message));
+        emitter.onNext(new LoaderInfo(LoadType.setImageId, holder, R.id.grid_img, obj.imageId));
     }
 
     @Override

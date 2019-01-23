@@ -3,14 +3,10 @@ package tinn.meal.ping.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,18 +20,14 @@ import tinn.meal.ping.data.SQLiteServer;
 import tinn.meal.ping.enums.IListListener;
 import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.enums.LoadType;
-import tinn.meal.ping.info.HolderInfo;
-import tinn.meal.ping.info.loadInfo.AdapterInfo;
-import tinn.meal.ping.info.loadInfo.GridInfo;
+import tinn.meal.ping.info.setInfo.AdapterInfo;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
-import tinn.meal.ping.info.loadInfo.LoaderInfo;
+import tinn.meal.ping.info.setInfo.LoaderInfo;
 import tinn.meal.ping.info.loadInfo.SetInfo;
 import tinn.meal.ping.support.AsyncListView;
 import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.Method;
 import tinn.meal.ping.support.ViewHolder;
-
-import static java.lang.System.exit;
 
 public class Fragment_My extends Fragment_Base implements View.OnClickListener, IListListener, ILoadListener {
     @Nullable
@@ -68,16 +60,11 @@ public class Fragment_My extends Fragment_Base implements View.OnClickListener, 
     public <T> void onReady(ObservableEmitter<LoadInfo> emitter, ViewHolder holder, T object) {
         if (!(object instanceof SetInfo)) return;
         SetInfo obj = (SetInfo) object;
-        {
-            HolderInfo info = new HolderInfo(holder, R.id.set_name, obj.Message);
-            emitter.onNext(new LoaderInfo(LoadType.setText, info));
 
-            info = new HolderInfo(holder, R.id.set_img, obj.imageId);
-            emitter.onNext(new LoaderInfo(LoadType.setImageId, info));
-        }
+        emitter.onNext(new LoaderInfo(LoadType.setText, holder, R.id.set_name, obj.Message));
+        emitter.onNext(new LoaderInfo(LoadType.setImageId, holder, R.id.set_img, obj.imageId));
         if (obj.iHeard) {
-            HolderInfo info = new HolderInfo(holder, R.id.set_name, "");
-            emitter.onNext(new LoaderInfo(LoadType.setLine, info));
+            emitter.onNext(new LoaderInfo(LoadType.setLine, holder, R.id.set_name, ""));
         }
     }
 
@@ -85,17 +72,17 @@ public class Fragment_My extends Fragment_Base implements View.OnClickListener, 
     public void onReady(LoadInfo info) {
         switch (info.Types) {
             case setLine:
-                HolderInfo holder = ((LoaderInfo) info).holderInfo;
-                TextView textView = holder.viewHolder.getView(holder.id);
+                LoaderInfo loader = (LoaderInfo) info;
+                TextView textView = loader.holder.getView(loader.id);
                 textView.setPadding(0, 0, 0, 0);
                 textView.setBackgroundColor(getActivity().getColor(R.color.colorGray));
                 Method.setSize(textView, 0, 10 * Config.display.density);
-                holder.viewHolder.getView(R.id.set_right).setVisibility(View.GONE);
+                loader.holder.getView(R.id.set_right).setVisibility(View.GONE);
                 break;
             case setImageId:
-                holder = ((LoaderInfo) info).holderInfo;
-                if (holder.imageId == 0) {
-                    holder.viewHolder.getView(holder.id).setVisibility(View.GONE);
+                loader = (LoaderInfo) info;
+                if (loader.imageId == 0) {
+                    loader.holder.getView(loader.id).setVisibility(View.GONE);
                 }
                 break;
             case setAdapter:

@@ -18,17 +18,17 @@ public class TimeInfo extends LoadInfo {
     public long onlyTime;
     public long endTime;
 
+    public TimeInfo(LoadType type) {
+        this.Types = type;
+    }
+
     public TimeInfo(long onlyTime) {
         this.Types = LoadType.time;
         this.onlyTime = onlyTime;
     }
 
-    public TimeInfo(LoadType type) {
-        this.Types = type;
-    }
-
-    public TimeInfo(View view, LoadType type, long time, long onlyTime, String msg) {
-        this.Types = type;
+    public TimeInfo(View view, long time, long onlyTime, String msg) {
+        this.Types = LoadType.time;
         this.endTime = time + onlyTime;
         if (Method.isEmpty(msg)) msg = "";
         this.msg = msg;

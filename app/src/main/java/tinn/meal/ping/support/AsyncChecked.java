@@ -13,7 +13,7 @@ public class AsyncChecked extends AsyncBase {
     @Override
     protected void onLoadData(ObservableEmitter<LoadInfo> emitter, LoadInfo info) throws Exception {
         switch (info.Types) {
-            case checkVersion:
+            case check:
                 if (Config.checking) {
                     Method.log("checking...");
                     return;

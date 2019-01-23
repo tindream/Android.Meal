@@ -1,9 +1,11 @@
 package tinn.meal.ping.data;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.Method;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
@@ -22,6 +24,47 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("create table Goods(Id integer not null" +
                 ", [Index] int, Name nvarchar, Price double, Quantity double, unique(Id asc));");
         db.execSQL("create index main.Goods_id on Goods (Id ASC);");
+    }
+
+    public void loadUpdate() {
+        if (Config.Admin.Version == 0) {
+//            update1();
+        }
+    }
+
+    private void update1() {
+        exec("alter table Goods add UserId integer");
+        Config.Admin.Version = 1;
+        updateAdmin("Version", Config.Admin.Version);
+    }
+
+    public void exec(String sql) {
+        SQLiteDatabase db = null;
+        try {
+            db = getReadableDatabase();
+            db.execSQL(sql);
+        } finally {
+            if (db != null) db.close();
+        }
+    }
+
+    public void updateAdmin(String name, Object value) {
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        try {
+            db = getReadableDatabase();
+            String sql = "select * from Admins where Name = ?";
+            cursor = db.rawQuery(sql, new String[]{name});
+            if (cursor.moveToFirst()) {
+                db.execSQL("update Admins set Value = ? where Name = ?", new String[]{value + "", name});
+            } else {
+                db.execSQL("insert into Admins(Value,Name) values(?,?)",
+                        new String[]{value + "", name});
+            }
+        } finally {
+            if (cursor != null) cursor.close();
+            if (db != null) db.close();
+        }
     }
 
     //软件版本号发生改变时调用

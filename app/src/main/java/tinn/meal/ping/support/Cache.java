@@ -5,7 +5,7 @@ import java.util.List;
 
 import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.info.eventInfo.EventInfo;
-import tinn.meal.ping.info.eventInfo.NotificheEventInfo;
+import tinn.meal.ping.info.eventInfo.NotifiedEventInfo;
 import tinn.meal.ping.info.sqlInfo.BaseInfo;
 import tinn.meal.ping.info.sqlInfo.GoodInfo;
 
@@ -30,9 +30,9 @@ public class Cache {
     }
 
     public static void addNotified(LoadType from, String msg) {
-        EventInfo e = new NotificheEventInfo(from);
+        EventInfo e = new NotifiedEventInfo(from);
         if (msg != null)
-            e = new NotificheEventInfo(from, msg);
+            e = new NotifiedEventInfo(from, msg);
         Method.hit(e.getMsg());
         NotifiedList.add(0, e);
     }

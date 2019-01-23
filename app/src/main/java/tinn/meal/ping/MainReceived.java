@@ -1,13 +1,12 @@
 package tinn.meal.ping;
 
 import android.content.Intent;
-import android.support.v4.view.ViewPager;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
 import tinn.meal.ping.enums.LoadType;
-import tinn.meal.ping.info.eventInfo.ErrorInfo;
+import tinn.meal.ping.info.eventInfo.ErrorEventInfo;
 import tinn.meal.ping.info.eventInfo.EventInfo;
 import tinn.meal.ping.support.Cache;
 import tinn.meal.ping.support.Config;
@@ -24,7 +23,7 @@ public class MainReceived extends MainBaseActivity {
                 case AutoLogin:
                     break;
                 case Error:
-                    ErrorInfo error = new Gson().fromJson(msg, ErrorInfo.class);
+                    ErrorEventInfo error = new Gson().fromJson(msg, ErrorEventInfo.class);
                     if (error.FromTypes == LoadType.AutoLogin) {
                         Method.confirm(this, error.Message).setListener(obj -> {
                             Config.Admin.UserId = 0;

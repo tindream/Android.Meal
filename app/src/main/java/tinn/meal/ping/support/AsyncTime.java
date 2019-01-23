@@ -11,7 +11,7 @@ import tinn.meal.ping.info.loadInfo.TimeInfo;
 public class AsyncTime extends AsyncBase {
     public AsyncTime(View view, long time, long onlyTime, String msg) {
         view.setTag(new TimeInfo(onlyTime));
-        initData(new TimeInfo(view, LoadType.time, time, onlyTime, msg));
+        initData(new TimeInfo(view, time, onlyTime, msg));
     }
 
     @Override

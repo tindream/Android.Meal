@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import tinn.meal.ping.data.SQLiteServer;
 import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.enums.LoadType;
-import tinn.meal.ping.info.eventInfo.ErrorInfo;
+import tinn.meal.ping.info.eventInfo.ErrorEventInfo;
 import tinn.meal.ping.info.eventInfo.EventInfo;
 import tinn.meal.ping.info.eventInfo.LoginEventInfo;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
@@ -80,7 +80,7 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
                     finish();
                     break;
                 case Error:
-                    ErrorInfo error = new Gson().fromJson(info.Message, ErrorInfo.class);
+                    ErrorEventInfo error = new Gson().fromJson(info.Message, ErrorEventInfo.class);
                     if (error.FromTypes == LoadType.Login) {
                         TextView btn = findViewById(R.id.login_btn);
                         btn.setText(R.string.btn_login);

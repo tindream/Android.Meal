@@ -11,10 +11,9 @@ import io.reactivex.ObservableEmitter;
 import tinn.meal.ping.R;
 import tinn.meal.ping.enums.IListListener;
 import tinn.meal.ping.enums.ILoadListener;
-import tinn.meal.ping.info.HolderInfo;
-import tinn.meal.ping.info.loadInfo.AdapterInfo;
+import tinn.meal.ping.info.setInfo.AdapterInfo;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
-import tinn.meal.ping.info.loadInfo.LoaderInfo;
+import tinn.meal.ping.info.setInfo.LoaderInfo;
 
 public class AsyncListView extends AsyncBase {
     protected IListListener listListener;
@@ -58,26 +57,19 @@ public class AsyncListView extends AsyncBase {
     protected void onCallUI(LoadInfo info) {
         switch (info.Types) {
             case setText:
-                HolderInfo holder = ((LoaderInfo) info).holderInfo;
-                holder.viewHolder.setText(holder.id, holder.msg);
+                LoaderInfo loader = (LoaderInfo) info;
+                loader.holder.setText(loader.id, loader.msg);
                 break;
             case setImage:
-                holder = ((LoaderInfo) info).holderInfo;
-                ImageView imageView = holder.viewHolder.getView(holder.id);
-                Picasso.with(context).load(holder.file).placeholder(R.drawable.ic_icon).into(imageView);
+                loader = (LoaderInfo) info;
+                ImageView imageView = loader.holder.getView(loader.id);
+                Picasso.with(context).load(loader.file).placeholder(R.drawable.ic_icon).into(imageView);
                 break;
             case setImageId:
-                holder = ((LoaderInfo) info).holderInfo;
-                imageView = holder.viewHolder.getView(holder.id);
-                if (holder.imageId != 0)
-                    imageView.setImageDrawable(Config.context.getDrawable(holder.imageId));
-                if (!Method.isEmpty(holder.msg))
-                    imageView.setBackground(Config.context.getDrawable(Integer.parseInt(holder.msg)));
-                break;
-            case setIcon:
-                holder = ((LoaderInfo) info).holderInfo;
-                imageView = holder.viewHolder.getView(holder.id);
-                Picasso.with(context).load(R.drawable.ic_icon).placeholder(R.drawable.ic_icon).into(imageView);
+                loader = (LoaderInfo) info;
+                imageView = loader.holder.getView(loader.id);
+                if (loader.imageId != 0)
+                    imageView.setImageDrawable(Config.context.getDrawable(loader.imageId));
                 break;
         }
         super.onCallUI(info);

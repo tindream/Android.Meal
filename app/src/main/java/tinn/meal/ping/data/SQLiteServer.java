@@ -29,7 +29,7 @@ public class SQLiteServer {
 
     public void Load(ObservableEmitter<LoadInfo> emitter) throws Exception {
         loadAdmin();
-        loadUpdate();
+        dbHelper.loadUpdate();
         emitter.onNext(new LoadInfo(LoadType.load));
         Thread.sleep(1000);
         Cache.GoodList = queryList(GoodInfo.class, new GoodInfo().getSql());
@@ -49,28 +49,6 @@ public class SQLiteServer {
                     break;
                 }
             }
-        }
-    }
-
-    private void loadUpdate() {
-        if (Config.Admin.Version == 0) {
-//            update1();
-        }
-    }
-
-    private void update1() {
-        exec("alter table Goods add UserId integer");
-        Config.Admin.Version = 1;
-        updateAdmin("Version", Config.Admin.Version);
-    }
-
-    public void exec(String sql) {
-        SQLiteDatabase db = null;
-        try {
-            db = dbHelper.getReadableDatabase();
-            db.execSQL(sql);
-        } finally {
-            if (db != null) db.close();
         }
     }
 
@@ -174,22 +152,7 @@ public class SQLiteServer {
     }
 
     public void updateAdmin(String name, Object value) {
-        SQLiteDatabase db = null;
-        Cursor cursor = null;
-        try {
-            db = dbHelper.getReadableDatabase();
-            String sql = "select * from Admins where Name = ?";
-            cursor = db.rawQuery(sql, new String[]{name});
-            if (cursor.moveToFirst()) {
-                db.execSQL("update Admins set Value = ? where Name = ?", new String[]{value + "", name});
-            } else {
-                db.execSQL("insert into Admins(Value,Name) values(?,?)",
-                        new String[]{value + "", name});
-            }
-        } finally {
-            if (cursor != null) cursor.close();
-            if (db != null) db.close();
-        }
+        dbHelper.updateAdmin(name, value);
     }
 
     public void execSQL(String sql) {

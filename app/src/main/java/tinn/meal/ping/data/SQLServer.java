@@ -101,7 +101,6 @@ public class SQLServer {
         try {
             emitter.onNext(new LoadInfo(LoadType.connect));
             conn = getSQLConnection();
-            emitter.onNext(new LoadInfo(LoadType.data));
             emitter.onNext(new ProgressInfo(5));
 
             SQLiteServer localServer = new SQLiteServer();
@@ -121,7 +120,6 @@ public class SQLServer {
             }
 
             Method.log("Load数据完成");
-            emitter.onNext(new LoadInfo(LoadType.image));
             int count = 0;
             count = 0;
             String sql = "select Top 1 Id from UpdateLogs order by Id desc";

@@ -6,7 +6,8 @@ public class VersionEventInfo extends EventInfo {
 
     public long version;
 
-    public VersionEventInfo() {
-        super(LoadType.checkVersion);
+    public VersionEventInfo(long version) {
+        super(LoadType.check);
+        this.version = version;
     }
 }

@@ -3,16 +3,16 @@ package tinn.meal.ping.info.eventInfo;
 import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.support.Method;
 
-public class NotificheEventInfo extends EventInfo {
+public class NotifiedEventInfo extends EventInfo {
 
     public LoadType from;
 
-    public NotificheEventInfo(LoadType type) {
+    public NotifiedEventInfo(LoadType type) {
         super(type);
         this.Message = "success";
     }
 
-    public NotificheEventInfo(LoadType from, String msg) {
+    public NotifiedEventInfo(LoadType from, String msg) {
         super(LoadType.Error);
         this.from = from;
         this.Message = msg;
