@@ -29,7 +29,7 @@
             android:focusable="false"
             android:text="@string/nav_home"
             android:textAlignment="center"
-            android:textColor="@color/colorBlackLight"
+            android:textColor="@color/colorBlack"
             android:textSize="@dimen/text14" />
     </LinearLayout>
 
@@ -57,7 +57,7 @@
             android:focusable="false"
             android:text="@string/nav_report"
             android:textAlignment="center"
-            android:textColor="@color/colorBlackLight"
+            android:textColor="@color/colorBlack"
             android:textSize="@dimen/text14" />
     </LinearLayout>
 
@@ -85,7 +85,7 @@
             android:focusable="false"
             android:text="@string/nav_order"
             android:textAlignment="center"
-            android:textColor="@color/colorBlackLight"
+            android:textColor="@color/colorBlack"
             android:textSize="@dimen/text14" />
     </LinearLayout>
 
@@ -113,7 +113,7 @@
             android:focusable="false"
             android:text="@string/nav_my"
             android:textAlignment="center"
-            android:textColor="@color/colorBlackLight"
+            android:textColor="@color/colorBlack"
             android:textSize="@dimen/text14" />
     </LinearLayout>
 

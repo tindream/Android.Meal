@@ -18,6 +18,26 @@ public abstract class View_Base extends ListenerBase {
     protected View view_custom;
     protected static boolean onlyone;
 
+    public void show() {
+        if (onlyone) return;
+        onlyone = true;
+        alert.setCanceledOnTouchOutside(true);
+        alert.setOnCancelListener(dialog -> {
+            onlyone = false;
+        });
+        alert.show();
+        autoSize();
+    }
+
+    public void autoSize() {
+        autoSize(85);
+    }
+
+    protected void autoSize(int rateWeight) {
+        Config.view_base = this;
+        autoWeight(rateWeight);
+    }
+
     protected void autoWeight(int rate) {
         WindowManager.LayoutParams params = alert.getWindow().getAttributes();  //获取对话框当前的参数值、
         params.width = Config.display.widthPixels * rate / 100;    //宽度设置全屏宽度
@@ -37,30 +57,6 @@ public abstract class View_Base extends ListenerBase {
         View view = view_custom.findViewById(id);
         double height = Config.display.heightPixels * rate / 100;
         Method.setSize(view, 0, height);
-    }
-
-    public void show() {
-        if (onlyone) return;
-        onlyone = true;
-        alert.setCanceledOnTouchOutside(true);
-        alert.setOnCancelListener(dialog -> {
-            onlyone = false;
-        });
-        showMore();
-    }
-
-    public void showMore() {
-        alert.show();
-        autoSize();
-    }
-
-    public void autoSize() {
-        autoSize(85);
-    }
-
-    public void autoSize(int rateWeight) {
-        Config.view_base = this;
-        autoWeight(rateWeight);
     }
 
     protected boolean onBtnClick(View v) {

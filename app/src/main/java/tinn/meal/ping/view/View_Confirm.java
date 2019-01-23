@@ -9,7 +9,8 @@ import tinn.meal.ping.enums.LoadType;
 
 public class View_Confirm extends View_Base {
     public void show(String msg) {
-        super.showMore();
+        super.show();
+        alert.setCanceledOnTouchOutside(false);
 
         TextView textView = view_custom.findViewById(R.id.confirm_msg);
         textView.setText(msg);

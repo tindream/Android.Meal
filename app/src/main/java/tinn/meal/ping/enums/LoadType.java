@@ -9,6 +9,7 @@ public enum LoadType {
     setIcon,
     setVisibility,
     setEnable,
+    setLine,
     setAdapter,
 
     local,

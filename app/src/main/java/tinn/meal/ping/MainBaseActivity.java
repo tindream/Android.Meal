@@ -175,10 +175,10 @@ public class MainBaseActivity extends BaseActivity implements ViewPager.OnPageCh
                 Method.hit("添加好友");
                 break;
             case R.id.action_item2:
-                Method.hit("发现");
+                Method.hit("发起群聊");
                 break;
             case R.id.action_item3:
-                Method.hit("发起群聊");
+                Method.hit("帮助与反馈");
                 break;
         }
         //点击PopWindow的item后,关闭此PopWindow

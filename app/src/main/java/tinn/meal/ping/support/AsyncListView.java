@@ -69,7 +69,8 @@ public class AsyncListView extends AsyncBase {
             case setImageId:
                 holder = ((LoaderInfo) info).holderInfo;
                 imageView = holder.viewHolder.getView(holder.id);
-                imageView.setImageDrawable(Config.context.getDrawable(holder.imageId));
+                if (holder.imageId != 0)
+                    imageView.setImageDrawable(Config.context.getDrawable(holder.imageId));
                 if (!Method.isEmpty(holder.msg))
                     imageView.setBackground(Config.context.getDrawable(Integer.parseInt(holder.msg)));
                 break;

@@ -37,7 +37,7 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Window window = getWindow();
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(getColor(R.color.colorGray));
+                window.setStatusBarColor(getColor(R.color.colorGrayLight));
             }
             setValue(R.id.login_user, "1");
             setValue(R.id.login_pad, "1");

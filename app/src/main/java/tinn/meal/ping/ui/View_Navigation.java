@@ -3,7 +3,6 @@ package tinn.meal.ping.ui;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
@@ -86,16 +85,16 @@ public class View_Navigation extends LinearLayout implements View.OnClickListene
         if (lastId == newId) return;
         switch (lastId) {
             case R.id.line1:
-                setBackground(R.id.line1_image, R.drawable.ic_home, R.id.line1_text, R.color.colorBlackLight);
+                setBackground(R.id.line1_image, R.drawable.ic_home, R.id.line1_text, R.color.colorBlack);
                 break;
             case R.id.line2:
-                setBackground(R.id.line2_image, R.drawable.ic_report, R.id.line2_text, R.color.colorBlackLight);
+                setBackground(R.id.line2_image, R.drawable.ic_report, R.id.line2_text, R.color.colorBlack);
                 break;
             case R.id.line3:
-                setBackground(R.id.line3_image, R.drawable.ic_order, R.id.line3_text, R.color.colorBlackLight);
+                setBackground(R.id.line3_image, R.drawable.ic_order, R.id.line3_text, R.color.colorBlack);
                 break;
             case R.id.line4:
-                setBackground(R.id.line4_image, R.drawable.ic_my, R.id.line4_text, R.color.colorBlackLight);
+                setBackground(R.id.line4_image, R.drawable.ic_my, R.id.line4_text, R.color.colorBlack);
                 break;
         }
         lastId = newId;

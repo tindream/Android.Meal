@@ -10,20 +10,33 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import io.reactivex.ObservableEmitter;
 import tinn.meal.ping.R;
 import tinn.meal.ping.WebActivity;
+import tinn.meal.ping.enums.IListListener;
+import tinn.meal.ping.enums.ILoadListener;
+import tinn.meal.ping.enums.LoadType;
+import tinn.meal.ping.info.HolderInfo;
+import tinn.meal.ping.info.loadInfo.AdapterInfo;
+import tinn.meal.ping.info.loadInfo.GridInfo;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
+import tinn.meal.ping.info.loadInfo.LoaderInfo;
+import tinn.meal.ping.support.AsyncListView;
 import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.Method;
+import tinn.meal.ping.support.ViewHolder;
 import tinn.meal.ping.view.View_About;
 import tinn.meal.ping.view.View_Ask;
 
-public class Fragment_Home extends Fragment_Base implements View.OnClickListener {
+public class Fragment_Home extends Fragment_Base implements View.OnClickListener, IListListener, ILoadListener {
     private boolean isFirstVisible;
     private boolean isComplete;
     private LoadInfo error;
@@ -46,8 +59,57 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
         getActivity().findViewById(R.id.home_minus).setOnClickListener(this);
         getActivity().findViewById(R.id.home_add).setOnClickListener(this);
         getActivity().findViewById(R.id.home_btn).setOnClickListener(this);
-        TextView textView = getActivity().findViewById(R.id.home_text);
-        textView.setText(Config.Loading + ">Home");
+
+        List<GridInfo> list = new ArrayList();
+        list.add(new GridInfo(R.drawable.ic_home, getString(R.string.nav_home)));
+        list.add(new GridInfo(R.drawable.ic_report, getString(R.string.nav_report)));
+        list.add(new GridInfo(R.drawable.ic_order, getString(R.string.nav_order)));
+        list.add(new GridInfo(R.drawable.ic_my, getString(R.string.nav_my)));
+
+        new AsyncListView().setListener(this, this).init(getActivity(), list, R.layout.item_grid);
+    }
+
+    @Override
+    public <T> void onReady(ObservableEmitter<LoadInfo> emitter, ViewHolder holder, T object) {
+        if (!(object instanceof GridInfo)) return;
+        GridInfo obj = (GridInfo) object;
+
+        HolderInfo info = new HolderInfo(holder, R.id.grid_name, obj.Message);
+        emitter.onNext(new LoaderInfo(LoadType.setText, info));
+
+        info = new HolderInfo(holder, R.id.grid_img, obj.imageId);
+        emitter.onNext(new LoaderInfo(LoadType.setImageId, info));
+    }
+
+    @Override
+    public void onReady(LoadInfo info) {
+        switch (info.Types) {
+            case setAdapter:
+                GridView gridView = getActivity().findViewById(R.id.gridView1);
+                //设置listView的Adapter
+                gridView.setAdapter(((AdapterInfo) info).adapter);
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.home_minus:
+                Method.show(getActivity());
+                break;
+            case R.id.home_add:
+                Method.ask(getActivity(), "Please Confirm Delete Item");
+                break;
+            case R.id.home_btn:
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                //将text框中的值传入
+                intent.putExtra("title", "日志");
+                File file = new File(Environment.getExternalStorageDirectory(), "/Meal/log.txt");
+                intent.putExtra("file", "file://" + file.toString());
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override
@@ -70,26 +132,6 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
     //去服务器下载数据
     @Override
     protected void onFragmentFirstVisible() {
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.home_minus:
-                Method.show(getActivity());
-                break;
-            case R.id.home_add:
-                Method.ask(getActivity(), "Please Confirm Delete Item");
-                break;
-            case R.id.home_btn:
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                //将text框中的值传入
-                intent.putExtra("title", "日志");
-                File file = new File(Environment.getExternalStorageDirectory(), "/Meal/log.txt");
-                intent.putExtra("file", "file://" + file.toString());
-                startActivity(intent);
-                break;
-        }
     }
 
     public void Load(boolean complete) {
