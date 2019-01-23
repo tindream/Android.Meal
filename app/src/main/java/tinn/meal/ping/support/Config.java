@@ -15,7 +15,6 @@ public class Config {
     public static final String Loading = "Loading...";
     public static final String Suffix = "FatturaPaA*";
     public static final String None = "None";
-    public static final int requestCode = 1000;
 
     public static AdminInfo Admin = new AdminInfo();
     public static View_Base view_base;

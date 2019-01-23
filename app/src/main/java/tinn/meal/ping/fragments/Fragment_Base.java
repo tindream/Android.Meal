@@ -1,5 +1,6 @@
 package tinn.meal.ping.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -34,7 +35,7 @@ public class Fragment_Base extends Fragment implements IListener {
 
     private boolean isFragmentVisible;
     private boolean isReuseView;
-    private boolean isFirstVisible;
+    protected boolean isFirstVisible;
     private View rootView;
 
     //setUserVisibleHint()在Fragment创建时会先被调用一次，传入isVisibleToUser = false
@@ -49,9 +50,9 @@ public class Fragment_Base extends Fragment implements IListener {
         if (rootView == null) {
             return;
         }
-        if (isFirstVisible && isVisibleToUser) {
+        if (!isFirstVisible && isVisibleToUser) {
+            isFirstVisible = true;
             onFragmentFirstVisible();
-            isFirstVisible = false;
         }
         if (isVisibleToUser) {
             onFragmentVisibleChange(true);
@@ -78,9 +79,9 @@ public class Fragment_Base extends Fragment implements IListener {
         if (rootView == null) {
             rootView = view;
             if (getUserVisibleHint()) {
-                if (isFirstVisible) {
+                if (!isFirstVisible) {
+                    isFirstVisible = true;
                     onFragmentFirstVisible();
-                    isFirstVisible = false;
                 }
                 onFragmentVisibleChange(true);
                 isFragmentVisible = true;
@@ -101,7 +102,7 @@ public class Fragment_Base extends Fragment implements IListener {
     }
 
     private void initVariable() {
-        isFirstVisible = true;
+        isFirstVisible = false;
         isFragmentVisible = false;
         rootView = null;
         isReuseView = true;

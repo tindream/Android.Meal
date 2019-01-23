@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import tinn.meal.ping.data.SQLiteServer;
 import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.enums.LoadType;
+import tinn.meal.ping.enums.requestType;
 import tinn.meal.ping.info.eventInfo.ErrorEventInfo;
 import tinn.meal.ping.info.eventInfo.EventInfo;
 import tinn.meal.ping.info.eventInfo.LoginEventInfo;
@@ -76,7 +77,7 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
                     Bundle bundle = new Bundle();
                     bundle.putString("UserId", login.UserId + "");  //向intent写入数据
                     data.putExtras(bundle);  //将数据模块放入切换类中
-                    setResult(Config.requestCode, data);
+                    setResult(requestType.loginResult, data);
                     finish();
                     break;
                 case Error:

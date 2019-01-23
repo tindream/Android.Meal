@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
 import tinn.meal.ping.enums.LoadType;
+import tinn.meal.ping.enums.requestType;
 import tinn.meal.ping.info.eventInfo.ErrorEventInfo;
 import tinn.meal.ping.info.eventInfo.EventInfo;
 import tinn.meal.ping.support.Cache;
@@ -28,7 +29,7 @@ public class MainReceived extends MainBaseActivity {
                         Method.confirm(this, error.Message).setListener(obj -> {
                             Config.Admin.UserId = 0;
                             Intent intent = new Intent(this, LoginActivity.class);
-                            startActivity(intent);
+                            startActivityForResult(intent, requestType.loginUpdate);
                         });
                     }
                     break;

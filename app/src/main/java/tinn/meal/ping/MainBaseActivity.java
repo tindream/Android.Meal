@@ -21,6 +21,7 @@ import java.util.concurrent.CompletableFuture;
 import tinn.meal.ping.data.SQLiteServer;
 import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.enums.LoadType;
+import tinn.meal.ping.enums.requestType;
 import tinn.meal.ping.fragments.Fragment_Home;
 import tinn.meal.ping.fragments.Fragment_My;
 import tinn.meal.ping.fragments.Fragment_Order;
@@ -83,11 +84,16 @@ public class MainBaseActivity extends BaseActivity implements ViewPager.OnPageCh
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Config.requestCode && resultCode == Config.requestCode) {
-            Bundle bundle = data.getExtras();  //取得来自子窗口的数据模块
-            String userId = bundle.getString("UserId");
-            initFragmentsOther();
-            onReady(new LoadInfo(LoadType.home));
+        if (resultCode == requestType.loginResult) {
+            if (requestCode == requestType.login) {
+                Bundle bundle = data.getExtras();  //取得来自子窗口的数据模块
+                String userId = bundle.getString("UserId");
+                initFragmentsOther();
+                onReady(new LoadInfo(LoadType.home));
+            } else if (requestCode == requestType.loginUpdate) {
+                Fragment_My Fragment_my = (Fragment_My) fragmentList.get(3);
+                Fragment_my.loadUser();
+            }
         }
     }
 
@@ -99,7 +105,7 @@ public class MainBaseActivity extends BaseActivity implements ViewPager.OnPageCh
                 if (Config.Admin.UserId == 0) {
                     Intent intent = new Intent(this, LoginActivity.class);
                     //为了接受SecondActivity中的值，不用startActivity(intent)
-                    startActivityForResult(intent, Config.requestCode);
+                    startActivityForResult(intent, requestType.login);
                 } else {
                     initFragmentsOther();
                     onReady(new LoadInfo(LoadType.home));

@@ -20,6 +20,7 @@ import tinn.meal.ping.data.SQLiteServer;
 import tinn.meal.ping.enums.IListListener;
 import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.enums.LoadType;
+import tinn.meal.ping.enums.requestType;
 import tinn.meal.ping.info.setInfo.AdapterInfo;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
 import tinn.meal.ping.info.setInfo.LoaderInfo;
@@ -41,9 +42,6 @@ public class Fragment_My extends Fragment_Base implements View.OnClickListener, 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        TextView textView = getActivity().findViewById(R.id.my_name);
-        textView.setText(Config.Admin.UserId + "");
-
         List<SetInfo> list = new ArrayList();
         list.add(new SetInfo(null));
         list.add(new SetInfo(R.drawable.ic_home, getString(R.string.nav_home)));
@@ -54,6 +52,27 @@ public class Fragment_My extends Fragment_Base implements View.OnClickListener, 
         list.add(new SetInfo(0, "退出"));
         list.add(new SetInfo(0, "关闭"));
         new AsyncListView().setListener(this, this).init(getActivity(), list, R.layout.item_set);
+    }
+
+    public void loadUser() {
+        if (!isFirstVisible) return;
+        TextView textView = getActivity().findViewById(R.id.my_name);
+        textView.setText(Config.Admin.UserId + "");
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == requestType.loginResult) {
+            if (requestCode == requestType.loginUpdate) {
+                loadUser();
+            }
+        }
+    }
+
+    @Override
+    protected void onFragmentFirstVisible() {
+        loadUser();
     }
 
     @Override
@@ -101,7 +120,7 @@ public class Fragment_My extends Fragment_Base implements View.OnClickListener, 
                                     Config.Admin.UserId = 0;
                                     new SQLiteServer().updateAdmin("UserId", Config.Admin.UserId);
                                     Intent intent = new Intent(getActivity(), LoginActivity.class);
-                                    startActivity(intent);
+                                    startActivityForResult(intent, requestType.loginUpdate);
                                 }
                             });
                             break;
