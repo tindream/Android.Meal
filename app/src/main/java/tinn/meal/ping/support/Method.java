@@ -506,6 +506,7 @@ public class Method {
         }
         toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
         toast.show();
+        log(msg);
     }
 
     public static void log(Object msg) {

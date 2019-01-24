@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 
 import tinn.meal.ping.info.loadInfo.LoadInfo;
 import tinn.meal.ping.support.AsyncLoad;
+import tinn.meal.ping.support.AsyncWait;
 import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.CrashHandlers;
 import tinn.meal.ping.support.Method;
