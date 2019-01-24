@@ -112,15 +112,6 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
         }
     }
 
-    @Override
-    protected void onFragmentVisibleChange(boolean isVisible) {
-        if (isVisible) {
-            //更新界面数据，如果数据还在下载中，就显示加载框
-        } else {
-            //关闭加载框
-        }
-    }
-
     //去服务器下载数据
     @Override
     protected void onFragmentFirstVisible() {

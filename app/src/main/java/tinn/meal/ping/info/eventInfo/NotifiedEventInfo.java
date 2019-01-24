@@ -9,7 +9,7 @@ public class NotifiedEventInfo extends EventInfo {
 
     public NotifiedEventInfo(LoadType type) {
         super(type);
-        this.Message = "success";
+        this.Message = "Success";
     }
 
     public NotifiedEventInfo(LoadType from, String msg) {

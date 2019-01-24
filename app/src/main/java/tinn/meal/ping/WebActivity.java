@@ -37,7 +37,6 @@ public class WebActivity extends ChildActivity {
 
         } catch (Exception e) {
             Method.log(e);
-            Method.hit(this, e.getMessage());
         }
     }
 }

@@ -1,6 +1,10 @@
 package tinn.meal.ping.data;
 
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.os.Build;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -36,6 +40,7 @@ public class SQLServer {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.N)
     private long checked(ObservableEmitter<LoadInfo> emitter) throws Exception {
         Connection conn = null;
         try {
@@ -49,7 +54,7 @@ public class SQLServer {
                 if (info.Name.equals(GoodInfo.class.getSimpleName())) {
                     checked(info.Type, info.Ids, GoodInfo.class, conn, localServer, Cache.GoodList);
                     Cache.GoodList.sort(Comparator.naturalOrder());
-                }  else if (info.Name.equals(AdminBaseInfo.class.getSimpleName())) {
+                } else if (info.Name.equals(AdminBaseInfo.class.getSimpleName())) {
                     checked(info.Type, info.Ids, AdminBaseInfo.class, conn, localServer, new ArrayList<>());
                 }
             }
@@ -96,6 +101,7 @@ public class SQLServer {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.N)
     public void Load(ObservableEmitter<LoadInfo> emitter) throws Exception {
         Connection conn = null;
         try {

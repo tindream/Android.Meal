@@ -26,7 +26,6 @@ public class BaseActivity extends AppCompatActivity {
             }
         } catch (Exception e) {
             Method.log(e);
-            Method.hit(this, e.getMessage());
         }
     }
 

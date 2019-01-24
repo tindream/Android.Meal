@@ -133,7 +133,6 @@ public class TcpClient extends ListenerBase implements ILoadListener, IObservabl
                 break;
             case complete:
                 Method.log("Sending...");
-                Method.hit("Sending...");
                 break;
             case Error:
                 ErrorEventInfo er = (ErrorEventInfo) info;

@@ -22,6 +22,7 @@ public class MainReceived extends MainBaseActivity {
             Cache.addNotified(eventInfo.Types);
             switch (eventInfo.Types) {
                 case AutoLogin:
+                    Method.startNotification(1, "Received", "AutoLogin");
                     break;
                 case Error:
                     ErrorEventInfo error = new Gson().fromJson(msg, ErrorEventInfo.class);

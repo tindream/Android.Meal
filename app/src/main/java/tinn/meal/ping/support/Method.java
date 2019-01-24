@@ -1,6 +1,9 @@
 package tinn.meal.ping.support;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,6 +23,7 @@ import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -48,6 +52,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import tinn.meal.ping.NotificationActivity;
 import tinn.meal.ping.R;
 import tinn.meal.ping.enums.IListener;
 import tinn.meal.ping.enums.ILoadListener;
@@ -58,6 +63,34 @@ import tinn.meal.ping.view.View_Confirm;
 
 public class Method {
     private static Toast toast;
+
+    private static final String PUSH_CHANNEL_ID = "PUSH_NOTIFY_ID";
+    private static final String PUSH_CHANNEL_NAME = "PUSH_NOTIFY_NAME";
+    private static NotificationManager notificationManager;
+    private static NotificationCompat.Builder notificationBuilder;
+
+    public static void initNotification(Activity activity) {
+        notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(PUSH_CHANNEL_ID, PUSH_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(channel);
+        }
+        notificationBuilder = new NotificationCompat.Builder(activity);
+    }
+
+    public static void startNotification(int id, String title, String msg) {
+        Intent intent = new Intent(Config.context, NotificationActivity.class);
+        intent.putExtra("title", title);
+        intent.putExtra("msg", msg);
+        PendingIntent pendingIntent = PendingIntent.getActivity(Config.context, 0, intent, 0);
+        notificationBuilder.setContentTitle(title)//设置通知栏标题
+                .setContentIntent(pendingIntent) //设置通知栏点击意图
+                .setContentText(msg)
+                .setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示，一般是系统获取到的时间
+                .setSmallIcon(R.mipmap.ic_launcher)//设置通知小ICON
+                .setChannelId(PUSH_CHANNEL_ID);
+        notificationManager.notify(id, notificationBuilder.build());
+    }
 
     public static void requestPower(String permission) {
         //判断是否已经赋予权限

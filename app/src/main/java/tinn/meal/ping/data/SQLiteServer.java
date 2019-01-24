@@ -1,7 +1,10 @@
 package tinn.meal.ping.data;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -27,6 +30,7 @@ public class SQLiteServer {
         dbHelper = new SQLiteHelper(Config.context);
     }
 
+    @TargetApi(Build.VERSION_CODES.N)
     public void Load(ObservableEmitter<LoadInfo> emitter) throws Exception {
         loadAdmin();
         dbHelper.loadUpdate();
