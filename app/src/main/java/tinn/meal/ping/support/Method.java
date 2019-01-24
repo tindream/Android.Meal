@@ -88,6 +88,7 @@ public class Method {
                 .setContentText(msg)
                 .setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示，一般是系统获取到的时间
                 .setSmallIcon(R.mipmap.ic_launcher)//设置通知小ICON
+                .setAutoCancel(true)
                 .setChannelId(PUSH_CHANNEL_ID);
         notificationManager.notify(id, notificationBuilder.build());
     }
