@@ -51,11 +51,11 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
-import tinn.meal.ping.NotificationActivity;
+import tinn.meal.ping.activity.NotificationActivity;
 import tinn.meal.ping.R;
 import tinn.meal.ping.enums.IListener;
-import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.info.loadInfo.ValueInfo;
 import tinn.meal.ping.view.View_About;
 import tinn.meal.ping.view.View_Ask;
@@ -82,15 +82,25 @@ public class Method {
         Intent intent = new Intent(Config.context, NotificationActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("msg", msg);
-        PendingIntent pendingIntent = PendingIntent.getActivity(Config.context, 0, intent, 0);
+        //FLAG_ACTIVITY_CLEAR_TOP:销毁目标Activity和它之上的所有Activity，重新创建目标Activity
+        //FLAG_ACTIVITY_SINGLE_TOP:栈顶单实例(当该activity处于task栈顶时，可以复用，直接onNewIntent)
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //FLAG_UPDATE_CURRENT:如果系统中已存在该 PendingIntent 对象，那么系统将保留该 PendingIntent 对象，但是会使用新的 Intent 来更新之前 PendingIntent 中的 Intent 对象数据，例如更新 Intent 中的 Extras 。
+        PendingIntent pendingIntent = PendingIntent.getActivity(Config.context, Round(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentTitle(title)//设置通知栏标题
                 .setContentIntent(pendingIntent) //设置通知栏点击意图
                 .setContentText(msg)
+                .setTicker(msg) //通知首次出现在通知栏，带上升动画效果的
                 .setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示，一般是系统获取到的时间
                 .setSmallIcon(R.mipmap.ic_launcher)//设置通知小ICON
                 .setAutoCancel(true)
                 .setChannelId(PUSH_CHANNEL_ID);
         notificationManager.notify(id, notificationBuilder.build());
+    }
+
+    //随机整数
+    public static int Round() {
+        return new Random().nextInt();
     }
 
     public static void requestPower(String permission) {

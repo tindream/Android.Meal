@@ -16,9 +16,8 @@ import android.widget.PopupWindow;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
-import tinn.meal.ping.data.SQLiteServer;
+import tinn.meal.ping.activity.LoginActivity;
 import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.enums.requestType;

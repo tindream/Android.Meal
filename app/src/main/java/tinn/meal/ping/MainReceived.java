@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import tinn.meal.ping.activity.LoginActivity;
 import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.enums.requestType;
 import tinn.meal.ping.info.eventInfo.ErrorEventInfo;

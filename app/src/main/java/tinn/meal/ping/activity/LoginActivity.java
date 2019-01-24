@@ -1,4 +1,4 @@
-package tinn.meal.ping;
+package tinn.meal.ping.activity;
 
 
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import tinn.meal.ping.R;
 import tinn.meal.ping.data.SQLiteServer;
 import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.enums.LoadType;

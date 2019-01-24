@@ -21,7 +21,7 @@ import java.util.List;
 
 import io.reactivex.ObservableEmitter;
 import tinn.meal.ping.R;
-import tinn.meal.ping.WebActivity;
+import tinn.meal.ping.activity.WebActivity;
 import tinn.meal.ping.enums.IListListener;
 import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.enums.LoadType;

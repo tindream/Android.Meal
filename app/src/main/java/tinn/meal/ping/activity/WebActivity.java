@@ -1,4 +1,4 @@
-package tinn.meal.ping;
+package tinn.meal.ping.activity;
 
 
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import tinn.meal.ping.R;
 import tinn.meal.ping.support.Method;
 import tinn.meal.ping.ui.ChildActivity;
 

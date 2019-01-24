@@ -1,4 +1,4 @@
-package tinn.meal.ping;
+package tinn.meal.ping.activity;
 
 
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import tinn.meal.ping.R;
 import tinn.meal.ping.support.Method;
 import tinn.meal.ping.ui.ChildActivity;
 

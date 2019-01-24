@@ -6,7 +6,11 @@ import tinn.meal.ping.info.loadInfo.TimeInfo;
 
 public class AsyncWait extends AsyncBase {
     public AsyncWait() {
-        initData(new TimeInfo(0));
+        this(0);
+    }
+
+    public AsyncWait(int time) {
+        initData(new TimeInfo(time));
     }
 
     @Override

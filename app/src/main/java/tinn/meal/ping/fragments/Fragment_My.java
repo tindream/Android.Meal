@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.ObservableEmitter;
-import tinn.meal.ping.LoginActivity;
+import tinn.meal.ping.activity.LoginActivity;
 import tinn.meal.ping.R;
 import tinn.meal.ping.data.SQLiteServer;
 import tinn.meal.ping.enums.IListListener;
