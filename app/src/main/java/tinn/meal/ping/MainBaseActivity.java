@@ -174,7 +174,6 @@ public class MainBaseActivity extends BaseActivity implements ViewPager.OnPageCh
     //PopupWindow的监听回调事件
     @Override
     public void onClick(View v) {
-        Method.log("" + v.getId());
         switch (v.getId()) {
             case R.id.action_item1:
                 Method.hit("添加好友");

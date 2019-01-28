@@ -94,7 +94,7 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
                     if (error.FromTypes == LoadType.Login) {
                         TextView btn = findViewById(R.id.login_btn);
                         btn.setText(R.string.btn_login);
-                        Method.show(this, error.Message);
+                        Method.hit(this, error.Message);
                     }
                     break;
             }

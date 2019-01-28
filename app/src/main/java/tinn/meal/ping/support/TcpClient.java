@@ -84,10 +84,9 @@ public class TcpClient extends ListenerBase implements ILoadListener, IObservabl
                     if (e.getClass().equals(ConnectException.class)
                             || e.getClass().equals(NoRouteToHostException.class)
                             || e.getClass().equals(SocketTimeoutException.class)) {
-//                        Method.log(e.getMessage());
                         Thread.sleep(1000);
                     } else {
-                        Method.log(e);
+                        Method.log(e.getMessage());
                     }
                     emitter.onNext(new LoadInfo(LoadType.connect));
                 }

@@ -113,7 +113,6 @@ public class Fragment_My extends Fragment_Base implements View.OnClickListener, 
                     SetInfo setInfo = (SetInfo) ((AdapterInfo) info).list.get(position);
                     if (setInfo.iHeard) return;
                     TextView set_name = view.findViewById(R.id.set_name);
-                    Method.log(set_name.getText() + "," + setInfo.Message);
                     switch (setInfo.Message) {
                         case "退出":
                             Method.ask(getActivity(), "Confirm Logout").setListener(obj -> {

@@ -86,7 +86,6 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
                     //我们需要的内容，跳转页面或显示详细信息
                     GridInfo gridInfo = (GridInfo) ((AdapterInfo) info).list.get(position);
                     TextView grid_name = view.findViewById(R.id.grid_name);
-                    Method.log(grid_name.getText() + "," + gridInfo.Message);
                 });
                 break;
         }
