@@ -21,7 +21,6 @@ import tinn.meal.ping.info.eventInfo.EventInfo;
 import tinn.meal.ping.info.eventInfo.LoginAutoEventInfo;
 import tinn.meal.ping.info.eventInfo.ErrorEventInfo;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
-import tinn.meal.ping.info.loadInfo.SendInfo;
 
 public class TcpClient extends ListenerBase implements ILoadListener, IObservableListener {
     private Socket socket;
@@ -35,37 +34,7 @@ public class TcpClient extends ListenerBase implements ILoadListener, IObservabl
     }
 
     public void send(EventInfo info) {
-        new AsyncAdapter().setListener(this, this).init(new SendInfo(info.Types, new Gson().toJson(info)));
-    }
-
-    private void sendTo(ObservableEmitter<LoadInfo> emitter, SendInfo info) {
-        try {
-            if (!socket.isConnected()) throw new SQLException("未连接");
-            byte[] buffer = info.Message.getBytes("utf-8");
-            Method.log("发送数据：" + info.Message);
-            //Socket输出流
-            buffer = getSendData(buffer);
-            OutputStream outputStream = socket.getOutputStream();
-            outputStream.write(buffer);
-            outputStream.flush();
-            emitter.onNext(new LoadInfo(LoadType.complete));
-        } catch (Exception e) {
-            Method.log(e);
-            emitter.onNext(new ErrorEventInfo(info.from, e.getMessage()));
-        }
-    }
-
-    private byte[] getSendData(byte[] data) {
-        //先处理发送的数据，加上四字节长度
-        byte[] buffer = new byte[data.length + 4];
-        buffer[0] = (byte) (data.length >> 24);
-        buffer[1] = (byte) (data.length >> 16);
-        buffer[2] = (byte) (data.length >> 8);
-        buffer[3] = (byte) data.length;
-        for (int i = 0; i < data.length; i++) {
-            buffer[i + 4] = data[i];
-        }
-        return buffer;
+        new AsyncAdapter().setListener(this, this).init(info);
     }
 
     @Override
@@ -91,10 +60,37 @@ public class TcpClient extends ListenerBase implements ILoadListener, IObservabl
                     emitter.onNext(new LoadInfo(LoadType.connect));
                 }
                 break;
-            case send:
-                sendTo(emitter, (SendInfo) info);
+            default:
+                try {
+                    if (!socket.isConnected()) throw new SQLException("未连接");
+                    String msg = new Gson().toJson(info);
+                    byte[] buffer = msg.getBytes("utf-8");
+                    Method.log(info);
+                    //Socket输出流
+                    buffer = getSendData(buffer);
+                    OutputStream outputStream = socket.getOutputStream();
+                    outputStream.write(buffer);
+                    outputStream.flush();
+                    emitter.onNext(new LoadInfo(LoadType.complete));
+                } catch (Exception e) {
+                    Method.log(e);
+                    emitter.onNext(new ErrorEventInfo(info.Types, e.getMessage()));
+                }
                 break;
         }
+    }
+
+    private byte[] getSendData(byte[] data) {
+        //先处理发送的数据，加上四字节长度
+        byte[] buffer = new byte[data.length + 4];
+        buffer[0] = (byte) (data.length >> 24);
+        buffer[1] = (byte) (data.length >> 16);
+        buffer[2] = (byte) (data.length >> 8);
+        buffer[3] = (byte) data.length;
+        for (int i = 0; i < data.length; i++) {
+            buffer[i + 4] = data[i];
+        }
+        return buffer;
     }
 
     private void received(ObservableEmitter<LoadInfo> emitter) throws IOException {

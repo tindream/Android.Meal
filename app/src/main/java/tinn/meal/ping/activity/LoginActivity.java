@@ -22,6 +22,7 @@ import tinn.meal.ping.info.eventInfo.ErrorEventInfo;
 import tinn.meal.ping.info.eventInfo.EventInfo;
 import tinn.meal.ping.info.eventInfo.LoginEventInfo;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
+import tinn.meal.ping.support.Cache;
 import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.Method;
 import tinn.meal.ping.ui.ChildActivity;
@@ -78,6 +79,7 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
             if (eventInfo == null) return;
             switch (eventInfo.Types) {
                 case Login:
+                    Cache.addNotified(eventInfo.Types);
                     LoginEventInfo login = new Gson().fromJson(info.Message, LoginEventInfo.class);
                     Config.Admin.UserId = login.UserId;
                     new SQLiteServer().updateAdmin("UserId", Config.Admin.UserId);
