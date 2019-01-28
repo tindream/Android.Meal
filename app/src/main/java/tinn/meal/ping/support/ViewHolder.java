@@ -98,7 +98,4 @@ public class ViewHolder {
         getView(id).setVisibility(visible);
         return this;
     }
-
-    ImageView img_icon;
-    TextView txt_content;
 }
