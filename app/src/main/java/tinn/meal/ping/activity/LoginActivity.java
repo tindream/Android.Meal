@@ -39,7 +39,7 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Window window = getWindow();
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(getColor(R.color.colorGrayLight));
+                window.setStatusBarColor(getResources().getColor(R.color.colorGrayLight));
             }
             setValue(R.id.login_user, "1");
             setValue(R.id.login_pad, "1");
@@ -65,7 +65,15 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
     @Override
     public void onReady(LoadInfo info) {
         try {
-            if (info.Message.equals("hello,world")) return;
+            if (info.Types == LoadType.Error) {
+                ErrorEventInfo error = (ErrorEventInfo) info;
+                if (error.FromTypes == LoadType.Login) {
+                    TextView btn = findViewById(R.id.login_btn);
+                    btn.setText(R.string.btn_login);
+                }
+                return;
+            }
+            if (info.Message == null || info.Message.equals("hello,world")) return;
             EventInfo eventInfo = new Gson().fromJson(info.Message, EventInfo.class);
             if (eventInfo == null) return;
             switch (eventInfo.Types) {

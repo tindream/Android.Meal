@@ -359,10 +359,10 @@ public class Method {
             view.setTag(badgeView);
         }
         badgeView.setTargetView(view);
-        badgeView.setBackground(6, context.getColor(R.color.colorRed));
+        badgeView.setBackground(6, context.getResources().getColor(R.color.colorRed));
         badgeView.setText(value);
         badgeView.setTextSize(7);
-        badgeView.setTextColor(context.getColor(R.color.colorRed));
+        badgeView.setTextColor(context.getResources().getColor(R.color.colorRed));
     }
 
     public static ValueInfo redDotNum(Context context, View view, int quantity, double total) {
@@ -405,8 +405,8 @@ public class Method {
         }
         badgeView.setTargetView(view);
         badgeView.setText(desc);
-        badgeView.setBackgroundColor(context.getColor(R.color.Transparent));
-        badgeView.setTextColor(context.getColor(R.color.colorRed));
+        badgeView.setBackgroundColor(context.getResources().getColor(R.color.Transparent));
+        badgeView.setTextColor(context.getResources().getColor(R.color.colorRed));
         badgeView.setTextSize(15);
         badgeView.setBadgeGravity(Gravity.LEFT);
         badgeView.setBadgeMargin(75, 5, 0, 0);
@@ -416,7 +416,7 @@ public class Method {
         int size = 100;
         if (Config.display.density != 3) size = size * 55 / 100;
         FloatingText floatingText = new FloatingText.FloatingTextBuilder(activity)
-                .textColor(activity.getColor(R.color.colorRed)) // 漂浮字体的颜色
+                .textColor(activity.getResources().getColor(R.color.colorRed)) // 漂浮字体的颜色
                 .textSize(size)  // 浮字体的大小
                 .textContent(tip) // 浮字体的内容
                 .offsetY(0) // FloatingText 相对其所贴附View的垂直位移偏移量
@@ -429,7 +429,7 @@ public class Method {
     public static void tipFixed(Activity activity, View view, String tip, int size) {
         if (Config.display.density != 3) size = size * 55 / 100;
         FloatingText floatingText = new FloatingText.FloatingTextBuilder(activity)
-                .textColor(activity.getColor(R.color.colorRed)) // 漂浮字体的颜色
+                .textColor(activity.getResources().getColor(R.color.colorRed)) // 漂浮字体的颜色
                 .textSize(size)  // 浮字体的大小
                 .textContent(tip) // 浮字体的内容
                 .floatingAnimatorEffect(new ScaleFloatingAnimator())//放大效果

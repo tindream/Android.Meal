@@ -94,7 +94,7 @@ public class Fragment_My extends Fragment_Base implements View.OnClickListener, 
                 LoaderInfo loader = (LoaderInfo) info;
                 TextView textView = loader.holder.getView(loader.id);
                 textView.setPadding(0, 0, 0, 0);
-                textView.setBackgroundColor(getActivity().getColor(R.color.colorGray));
+                textView.setBackgroundColor(getActivity().getResources().getColor(R.color.colorGray));
                 Method.setSize(textView, 0, 10 * Config.display.density);
                 loader.holder.getView(R.id.set_right).setVisibility(View.GONE);
                 break;

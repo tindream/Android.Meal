@@ -40,7 +40,6 @@ public class SQLServer {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.N)
     private long checked(ObservableEmitter<LoadInfo> emitter) throws Exception {
         Connection conn = null;
         try {
@@ -53,7 +52,9 @@ public class SQLServer {
                 if (Method.isEmpty(info.Ids)) continue;
                 if (info.Name.equals(GoodInfo.class.getSimpleName())) {
                     checked(info.Type, info.Ids, GoodInfo.class, conn, localServer, Cache.GoodList);
-                    Cache.GoodList.sort(Comparator.naturalOrder());
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        Cache.GoodList.sort(Comparator.naturalOrder());
+                    }
                 } else if (info.Name.equals(AdminBaseInfo.class.getSimpleName())) {
                     checked(info.Type, info.Ids, AdminBaseInfo.class, conn, localServer, new ArrayList<>());
                 }
@@ -101,7 +102,6 @@ public class SQLServer {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.N)
     public void Load(ObservableEmitter<LoadInfo> emitter) throws Exception {
         Connection conn = null;
         try {
@@ -115,7 +115,9 @@ public class SQLServer {
                 queryList(conn, list, GoodInfo.class, new GoodInfo().getSql() + " where IsDelete = 0");
 
                 localServer.sync(list, Cache.GoodList, GoodInfo.class);
-                Cache.GoodList.sort(Comparator.naturalOrder());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Cache.GoodList.sort(Comparator.naturalOrder());
+                }
                 emitter.onNext(new ProgressInfo(42));
             }
             {

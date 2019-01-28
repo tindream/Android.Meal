@@ -34,10 +34,6 @@ public class TcpClient extends ListenerBase implements ILoadListener, IObservabl
         new AsyncAdapter().setListener(this, this).init(LoadType.connect);
     }
 
-    public boolean isConnected() {
-        return socket != null && socket.isConnected();
-    }
-
     public void send(EventInfo info) {
         new AsyncAdapter().setListener(this, this).init(new SendInfo(info.Types, new Gson().toJson(info)));
     }
@@ -124,7 +120,6 @@ public class TcpClient extends ListenerBase implements ILoadListener, IObservabl
     public void onReady(LoadInfo info) {
         switch (info.Types) {
             case connect:
-                onListener(info);
                 connect();
                 break;
             case connected:
@@ -138,6 +133,7 @@ public class TcpClient extends ListenerBase implements ILoadListener, IObservabl
                 ErrorEventInfo er = (ErrorEventInfo) info;
                 Cache.addNotified(er.FromTypes, info.Message);
                 onListener(LoadType.notifiedUpdate);
+                onListener(new ErrorEventInfo(((ErrorEventInfo) info).FromTypes, info.Message));
                 break;
             case received:
                 onListener(new EventInfo(LoadType.received, info.Message));

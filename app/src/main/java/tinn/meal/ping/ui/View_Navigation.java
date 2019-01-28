@@ -38,7 +38,7 @@ public class View_Navigation extends LinearLayout implements View.OnClickListene
     public View_Navigation(Context context, AttributeSet attrs) {
         super(context, attrs);
         addView(View.inflate(context, R.layout.view_navigation, null));
-        mPaint.setColor(context.getColor(R.color.colorGrayBlack));
+        mPaint.setColor(context.getResources().getColor(R.color.colorGrayBlack));
 
         findViewById(R.id.line1).setOnClickListener(this);
         findViewById(R.id.line2).setOnClickListener(this);
@@ -122,7 +122,7 @@ public class View_Navigation extends LinearLayout implements View.OnClickListene
         ImageView imageView = findViewById(imageId);
         imageView.setImageResource(drawableId);
         TextView textView = findViewById(textId);
-        textView.setTextColor(Config.context.getColor(colorId));
+        textView.setTextColor(Config.context.getResources().getColor(colorId));
     }
 
     @Override

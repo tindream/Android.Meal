@@ -146,7 +146,7 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
         TextView textView = getActivity().findViewById(R.id.load_text);
         String desc = info.Types + "\n" + info.Message;
         int end = desc.indexOf("\n");
-        int color = getActivity().getColor(R.color.colorRed);
+        int color = getActivity().getResources().getColor(R.color.colorRed);
         SpannableString span = new SpannableString(desc);
         span.setSpan(new ForegroundColorSpan(color), 0, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(span);

@@ -30,14 +30,15 @@ public class SQLiteServer {
         dbHelper = new SQLiteHelper(Config.context);
     }
 
-    @TargetApi(Build.VERSION_CODES.N)
     public void Load(ObservableEmitter<LoadInfo> emitter) throws Exception {
         loadAdmin();
         dbHelper.loadUpdate();
         emitter.onNext(new LoadInfo(LoadType.load));
         Thread.sleep(1000);
         Cache.GoodList = queryList(GoodInfo.class, new GoodInfo().getSql());
-        Cache.GoodList.sort(Comparator.naturalOrder());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Cache.GoodList.sort(Comparator.naturalOrder());
+        }
         Method.log("Load本地完成");
         emitter.onNext(new LoadInfo(LoadType.complete));
     }
