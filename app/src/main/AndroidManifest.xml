@@ -24,6 +24,7 @@
         <activity android:name="tinn.meal.ping.activity.WebActivity"></activity>
         <activity android:name="tinn.meal.ping.activity.LoginActivity"></activity>
         <activity android:name="tinn.meal.ping.activity.NotificationActivity"></activity>
+        <activity android:name="tinn.meal.ping.activity.ChartActivity"></activity>
     </application>
 
 </manifest>

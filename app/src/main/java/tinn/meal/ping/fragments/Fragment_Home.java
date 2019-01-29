@@ -48,17 +48,12 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
         return messageLayout;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        super.load(R.id.home_context, R.id.home_load, R.id.home_text, false);
-    }
-
     //去服务器下载数据
     //仅加载一次
     @Override
     protected void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
+        super.load(R.id.home_context, R.id.home_load, R.id.home_text, false);
         getActivity().findViewById(R.id.home_minus).setOnClickListener(this);
         getActivity().findViewById(R.id.home_add).setOnClickListener(this);
         getActivity().findViewById(R.id.home_btn).setOnClickListener(this);
@@ -71,10 +66,7 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
 
         new AsyncListView().setListener(this, this).init(getActivity(), list, R.layout.item_grid);
         load(isComplete);
-        if (error != null) {
-            error(error);
-            error = null;
-        }
+        if (error != null) error(error);
     }
 
     @Override
@@ -124,7 +116,7 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
 
     public void load(boolean complete) {
         if (!isFirstVisible) {
-            isComplete = complete;
+            this.isComplete = complete;
             return;
         }
         super.load(R.id.home_context, R.id.home_load, R.id.home_text, complete);

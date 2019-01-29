@@ -1,11 +1,15 @@
 package tinn.meal.ping.fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -40,15 +44,26 @@ public class Fragment_Base extends Fragment implements IListener {
 
     protected void load(int viewId, int loadId, int textId, boolean complete) {
         LinearLayout load_context = getActivity().findViewById(loadId);
-        load_context.setVisibility(complete ? View.GONE : View.VISIBLE);
         if (!complete) {
+            load_context.setVisibility(View.VISIBLE);
             ViewGroup.LayoutParams layoutParams = load_context.getLayoutParams();
             layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
             TextView textView = getActivity().findViewById(textId);
             textView.setText(Config.Loading);
+        } else {
+            load_context.animate().alpha(0).setDuration(300).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    load_context.setVisibility(View.GONE);
+                }
+            });
         }
         LinearLayout view_context = getActivity().findViewById(viewId);
-        getActivity().findViewById(viewId).setVisibility(complete ? View.VISIBLE : View.GONE);
+        view_context.setVisibility(complete ? View.VISIBLE : View.GONE);
+        if (complete) {
+            Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.anim_show);
+            view_context.setAnimation(animation);
+        }
     }
 
     private boolean isFragmentVisible;

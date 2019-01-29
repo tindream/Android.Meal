@@ -34,7 +34,6 @@ public class SQLiteServer {
         loadAdmin();
         dbHelper.loadUpdate();
         emitter.onNext(new LoadInfo(LoadType.load));
-        Thread.sleep(1000);
         Cache.GoodList = queryList(GoodInfo.class, new GoodInfo().getSql());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Cache.GoodList.sort(Comparator.naturalOrder());
