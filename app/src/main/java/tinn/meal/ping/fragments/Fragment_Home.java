@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -30,7 +29,6 @@ import tinn.meal.ping.info.loadInfo.GridInfo;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
 import tinn.meal.ping.info.setInfo.LoaderInfo;
 import tinn.meal.ping.support.AsyncListView;
-import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.Method;
 import tinn.meal.ping.support.ViewHolder;
 
@@ -53,6 +51,14 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        super.load(R.id.home_context, R.id.home_load, R.id.home_text, false);
+    }
+
+    //去服务器下载数据
+    //仅加载一次
+    @Override
+    protected void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
         getActivity().findViewById(R.id.home_minus).setOnClickListener(this);
         getActivity().findViewById(R.id.home_add).setOnClickListener(this);
         getActivity().findViewById(R.id.home_btn).setOnClickListener(this);
@@ -64,6 +70,11 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
         list.add(new GridInfo(R.drawable.ic_my, getString(R.string.nav_my)));
 
         new AsyncListView().setListener(this, this).init(getActivity(), list, R.layout.item_grid);
+        load(isComplete);
+        if (error != null) {
+            error(error);
+            error = null;
+        }
     }
 
     @Override
@@ -111,30 +122,12 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
         }
     }
 
-    //去服务器下载数据
-    @Override
-    protected void onFragmentFirstVisible() {
-        Load(isComplete);
-        if (error != null) {
-            error(error);
-            error = null;
-        }
-    }
-
-    public void Load(boolean complete) {
+    public void load(boolean complete) {
         if (!isFirstVisible) {
             isComplete = complete;
             return;
         }
-        LinearLayout home_load = getActivity().findViewById(R.id.home_load);
-        home_load.setVisibility(complete ? View.GONE : View.VISIBLE);
-        if (!complete) {
-            ViewGroup.LayoutParams layoutParams = home_load.getLayoutParams();
-            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-            TextView textView = getActivity().findViewById(R.id.load_text);
-            textView.setText(Config.Loading);
-        }
-        getActivity().findViewById(R.id.home_context).setVisibility(complete ? View.VISIBLE : View.GONE);
+        super.load(R.id.home_context, R.id.home_load, R.id.home_text, complete);
     }
 
     public void error(LoadInfo info) {
@@ -142,7 +135,7 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
             this.error = info;
             return;
         }
-        TextView textView = getActivity().findViewById(R.id.load_text);
+        TextView textView = getActivity().findViewById(R.id.home_text);
         String desc = info.Types + "\n" + info.Message;
         int end = desc.indexOf("\n");
         int color = getActivity().getResources().getColor(R.color.colorRed);

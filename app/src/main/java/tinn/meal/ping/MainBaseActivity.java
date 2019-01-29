@@ -117,7 +117,7 @@ public class MainBaseActivity extends BaseActivity implements ViewPager.OnPageCh
             case complete:
                 onReady(new LoadInfo(LoadType.home));
                 fragment_home = (Fragment_Home) fragmentList.get(0);
-                fragment_home.Load(true);
+                fragment_home.load(true);
                 break;
         }
     }

@@ -41,4 +41,6 @@ dependencies {
     implementation files('libs/badgeview.jar')
     //gson字符
     implementation files('libs/gson-2.7.jar')
+    //图表
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.1'
 }

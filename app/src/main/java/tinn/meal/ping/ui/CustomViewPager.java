@@ -20,6 +20,8 @@ public class CustomViewPager extends ViewPager {
 
     public CustomViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
+        //不销毁的页卡数量，比最大数量小1，全部不销毁
+        this.setOffscreenPageLimit(3);
     }
 
     @Override

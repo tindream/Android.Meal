@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import tinn.meal.ping.R;
 import tinn.meal.ping.enums.IListener;
 import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
+import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.Method;
 
 //封装懒加载的实现
@@ -31,6 +36,19 @@ public class Fragment_Base extends Fragment implements IListener {
         } catch (Exception ex) {
             Method.log(ex);
         }
+    }
+
+    protected void load(int viewId, int loadId, int textId, boolean complete) {
+        LinearLayout load_context = getActivity().findViewById(loadId);
+        load_context.setVisibility(complete ? View.GONE : View.VISIBLE);
+        if (!complete) {
+            ViewGroup.LayoutParams layoutParams = load_context.getLayoutParams();
+            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            TextView textView = getActivity().findViewById(textId);
+            textView.setText(Config.Loading);
+        }
+        LinearLayout view_context = getActivity().findViewById(viewId);
+        getActivity().findViewById(viewId).setVisibility(complete ? View.VISIBLE : View.GONE);
     }
 
     private boolean isFragmentVisible;
@@ -141,7 +159,6 @@ public class Fragment_Base extends Fragment implements IListener {
      * 最后在 onFragmentVisibleChange() 里根据数据下载状态来控制下载进度ui控件的显示与隐藏
      */
     protected void onFragmentFirstVisible() {
-
     }
 
     protected boolean isFragmentVisible() {

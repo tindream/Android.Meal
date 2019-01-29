@@ -26,6 +26,7 @@ import tinn.meal.ping.info.loadInfo.LoadInfo;
 import tinn.meal.ping.info.setInfo.LoaderInfo;
 import tinn.meal.ping.info.loadInfo.SetInfo;
 import tinn.meal.ping.support.AsyncListView;
+import tinn.meal.ping.support.AsyncWait;
 import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.Method;
 import tinn.meal.ping.support.ViewHolder;
@@ -41,6 +42,13 @@ public class Fragment_My extends Fragment_Base implements View.OnClickListener, 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        super.load(R.id.my_context, R.id.my_load, R.id.my_text, false);
+    }
+
+    @Override
+    protected void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
+        loadUser();
 
         List<SetInfo> list = new ArrayList();
         list.add(new SetInfo(null));
@@ -52,6 +60,7 @@ public class Fragment_My extends Fragment_Base implements View.OnClickListener, 
         list.add(new SetInfo(0, "退出"));
         list.add(new SetInfo(0, "关闭"));
         new AsyncListView().setListener(this, this).init(getActivity(), list, R.layout.item_set);
+        super.load(R.id.my_context, R.id.my_load, R.id.my_text, true);
     }
 
     public void loadUser() {
@@ -68,11 +77,6 @@ public class Fragment_My extends Fragment_Base implements View.OnClickListener, 
                 loadUser();
             }
         }
-    }
-
-    @Override
-    protected void onFragmentFirstVisible() {
-        loadUser();
     }
 
     @Override

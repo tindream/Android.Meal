@@ -86,7 +86,7 @@ public class Method {
         //FLAG_ACTIVITY_SINGLE_TOP:栈顶单实例(当该activity处于task栈顶时，可以复用，直接onNewIntent)
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         //FLAG_UPDATE_CURRENT:如果系统中已存在该 PendingIntent 对象，那么系统将保留该 PendingIntent 对象，但是会使用新的 Intent 来更新之前 PendingIntent 中的 Intent 对象数据，例如更新 Intent 中的 Extras 。
-        PendingIntent pendingIntent = PendingIntent.getActivity(Config.context, Round(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(Config.context, round(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentTitle(title)//设置通知栏标题
                 .setContentIntent(pendingIntent) //设置通知栏点击意图
                 .setContentText(msg)
@@ -99,8 +99,13 @@ public class Method {
     }
 
     //随机整数
-    public static int Round() {
+    public static int round() {
         return new Random().nextInt();
+    }
+
+    //随机整数
+    public static int round(int bound) {
+        return new Random().nextInt(bound);
     }
 
     public static void requestPower(String permission) {

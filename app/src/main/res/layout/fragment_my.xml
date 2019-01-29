@@ -6,35 +6,62 @@
     android:orientation="vertical">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/my_context"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/my_name"
-            android:layout_width="wrap_content"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:focusable="false"
-            android:padding="15dp"
-            android:text="@string/desc_load"
-            android:textColor="@color/While"
-            android:textSize="@dimen/text24" />
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:id="@+id/my_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:padding="15dp"
+                android:text="@string/desc_load"
+                android:textColor="@color/While"
+                android:textSize="@dimen/text24" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/my_listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/While"
+            android:divider="@color/colorGray"
+            android:dividerHeight="1dp"
+            android:listSelector="@drawable/selector_listview"
+            android:scrollbarSize="@dimen/scrollbarSize"
+            android:scrollbarThumbVertical="@color/colorPrimary" />
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/my_listView"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/my_load"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/While"
-        android:divider="@color/colorGray"
-        android:dividerHeight="1dp"
-        android:listSelector="@drawable/selector_listview"
-        android:scrollbarSize="@dimen/scrollbarSize"
-        android:scrollbarThumbVertical="@color/colorPrimary" />
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/my_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="@string/desc_load"
+            android:textAlignment="center"
+            android:textSize="@dimen/text18" />
+
+    </LinearLayout>
 
 </LinearLayout>

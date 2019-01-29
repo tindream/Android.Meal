@@ -35,16 +35,16 @@ public class MainActivity extends MainReceived {
         ViewPager vp = findViewById(R.id.mainViewPager);
         switch (info.Types) {
             case home:
-                vp.setCurrentItem(0, true);
+                vp.setCurrentItem(0, false);
                 break;
             case report:
-                vp.setCurrentItem(1, true);
+                vp.setCurrentItem(1, false);
                 break;
             case order:
-                vp.setCurrentItem(2, true);
+                vp.setCurrentItem(2, false);
                 break;
             case my:
-                vp.setCurrentItem(3, true);
+                vp.setCurrentItem(3, false);
                 break;
             case received:
                 received(info.Message);

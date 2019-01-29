@@ -10,7 +10,7 @@ import android.widget.TextView;
 import tinn.meal.ping.R;
 import tinn.meal.ping.support.Config;
 
-public class Fragment_Order extends Fragment_Base implements View.OnClickListener, View.OnLongClickListener {
+public class Fragment_Order extends Fragment_Base implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -21,17 +21,15 @@ public class Fragment_Order extends Fragment_Base implements View.OnClickListene
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        TextView textView = getActivity().findViewById(R.id.order_text);
-        textView.setText(Config.Loading + ">Order");
-        load();
-    }
-
-    public void load() {
+        super.load(R.id.order_context, R.id.order_load, R.id.order_text, false);
     }
 
     @Override
-    public boolean onLongClick(View v) {
-        return false;
+    protected void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
+        TextView textView = getActivity().findViewById(R.id.order_id);
+        textView.setText("Order");
+        super.load(R.id.order_context, R.id.order_load, R.id.order_text, true);
     }
 
     @Override
