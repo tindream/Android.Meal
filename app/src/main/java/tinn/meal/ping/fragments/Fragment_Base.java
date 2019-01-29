@@ -51,7 +51,7 @@ public class Fragment_Base extends Fragment implements IListener {
             TextView textView = getActivity().findViewById(textId);
             textView.setText(Config.Loading);
         } else {
-            load_context.animate().alpha(0).setDuration(300).setListener(new AnimatorListenerAdapter() {
+            load_context.animate().alpha(0).setDuration(400).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     load_context.setVisibility(View.GONE);
