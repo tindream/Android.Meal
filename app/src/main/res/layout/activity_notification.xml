@@ -10,11 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/colorPrimary"
-        android:scrollX="9dp"
+        android:paddingBottom="1dp"
+        android:scrollX="3dp"
         android:theme="?attr/actionBarTheme"
         app:contentInsetStartWithNavigation="0dp"
         app:navigationIcon="@drawable/ic_back_while"
         app:title="@string/app_name"
+        app:titleMargin="0dp"
         app:titleTextColor="@color/While" />
 
     <TextView
