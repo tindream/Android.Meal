@@ -43,4 +43,6 @@ dependencies {
     implementation files('libs/gson-2.7.jar')
     //图表
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+    //百度地图
+    implementation files('libs/BaiduLBS_Android.jar')
 }

@@ -12,6 +12,7 @@
     <string name="btn_cancel">取消</string>
     <string name="btn_share">分享</string>
     <string name="btn_login">登陆</string>
+    <string name="btn_location">定位</string>
 
 
     <string name="lb_user">用户</string>

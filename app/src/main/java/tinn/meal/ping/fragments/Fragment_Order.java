@@ -7,10 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.MapView;
+
 import tinn.meal.ping.R;
 import tinn.meal.ping.support.Config;
 
 public class Fragment_Order extends Fragment_Base implements View.OnClickListener {
+    MapView mapView = null;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SDKInitializer.initialize(getActivity().getApplicationContext());
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -27,8 +38,8 @@ public class Fragment_Order extends Fragment_Base implements View.OnClickListene
     @Override
     protected void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
-        TextView textView = getActivity().findViewById(R.id.order_id);
-        textView.setText("Order");
+        getActivity().findViewById(R.id.order_btn).setOnClickListener(this);
+        mapView = getActivity().findViewById(R.id.order_View);
         super.load(R.id.order_context, R.id.order_load, R.id.order_text, true);
     }
 
