@@ -42,7 +42,7 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                 window.setStatusBarColor(getResources().getColor(R.color.colorGrayLight));
             }
-            setValue(R.id.login_user, "1");
+            setValue(R.id.login_user, "3");
             setValue(R.id.login_pad, "1");
         } catch (Exception e) {
             Method.log(e);

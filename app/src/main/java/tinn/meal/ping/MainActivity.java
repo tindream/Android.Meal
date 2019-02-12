@@ -23,7 +23,12 @@ public class MainActivity extends MainReceived {
         Config.context = this;
         new AsyncLoad().setListener(this);
         initFragmentsHome();
-        Method.requestPower(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        String[] permissions = new String[]{
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.READ_PHONE_STATE
+        };
+        Method.requestPower(permissions);
         Method.initNotification(this);
         ViewPager vp = findViewById(R.id.mainViewPager);
         vp.addOnPageChangeListener(this);

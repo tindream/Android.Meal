@@ -44,10 +44,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.Array;
 import java.net.NetworkInterface;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -78,6 +80,7 @@ public class Method {
         notificationBuilder = new NotificationCompat.Builder(activity);
     }
 
+    //通知
     public static void startNotification(int id, String title, String msg) {
         Intent intent = new Intent(Config.context, NotificationActivity.class);
         intent.putExtra("title", title);
@@ -108,19 +111,27 @@ public class Method {
         return new Random().nextInt(bound);
     }
 
-    public static void requestPower(String permission) {
-        //判断是否已经赋予权限
-        if (ContextCompat.checkSelfPermission(Config.context, permission) != PackageManager.PERMISSION_GRANTED) {
-            //如果应用之前请求过此权限但用户拒绝了请求，此方法将返回 true。
-            if (ActivityCompat.shouldShowRequestPermissionRationale(Config.context, permission)) {
-                //这里可以写个对话框之类的项向用户解释为什么要申请权限，并在对话框的确认键后续再次申请权限
-            } else {
-                //申请权限，字符串数组内是一个或多个要申请的权限，1是申请权限结果的返回参数，在onRequestPermissionsResult可以得知申请结果
-                ActivityCompat.requestPermissions(Config.context, new String[]{permission}, 1);
+    //询问权限
+    public static void requestPower(String[] permissions) {
+        List list = new ArrayList();
+        for (int i = 0; i < permissions.length; i++) {
+            //判断是否已经赋予权限
+            if (ContextCompat.checkSelfPermission(Config.context, permissions[i]) != PackageManager.PERMISSION_GRANTED) {
+                //如果应用之前请求过此权限但用户拒绝了请求，此方法将返回 true。
+                if (ActivityCompat.shouldShowRequestPermissionRationale(Config.context, permissions[i])) {
+                    //这里可以写个对话框之类的项向用户解释为什么要申请权限，并在对话框的确认键后续再次申请权限
+                } else {
+                    //申请权限，字符串数组内是一个或多个要申请的权限，1是申请权限结果的返回参数，在onRequestPermissionsResult可以得知申请结果
+                    //ActivityCompat.requestPermissions(Config.context, new String[]{permissions[i]}, 1);
+                    list.add(permissions[i]);
+                }
             }
         }
+        if (list.size() > 0)
+            ActivityCompat.requestPermissions(Config.context, (String[]) list.toArray(new String[0]), 1);
     }
 
+    //当前电量
     public static int getBattery() {
         BatteryManager manager = (BatteryManager) Config.context.getSystemService(Config.context.BATTERY_SERVICE);
         int percent = manager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);///当前电量百分比
@@ -157,6 +168,7 @@ public class Method {
         return mime;
     }
 
+    //获取圆角矩形图片(顶部圆角)方法
     public static Bitmap getRoundTopBitmap(Paint paint, Bitmap bitmap, int roundPx) {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
@@ -320,6 +332,7 @@ public class Method {
 //        return ip;
 //    }
 
+    //MD5加密
     public static String EncryptMD5(String msg) {
         try {
             // 得到一个信息摘要器
@@ -354,6 +367,7 @@ public class Method {
         return dm;
     }
 
+    //红点文字
     public static void redDot(Context context, View view, String value) {
         Object obj = view.getTag();
         BadgeView badgeView;
@@ -370,6 +384,7 @@ public class Method {
         badgeView.setTextColor(context.getResources().getColor(R.color.colorRed));
     }
 
+    //红点数字
     public static ValueInfo redDotNum(Context context, View view, int quantity, double total) {
         BadgeView badgeView = redDotNum(context, view, quantity);
         Object obj = badgeView.getTag();
@@ -381,6 +396,7 @@ public class Method {
         return lastValue;
     }
 
+    //红点数字
     public static BadgeView redDotNum(Context context, View view, int quantity) {
         Object obj = view.getTag();
         BadgeView badgeView;
@@ -399,6 +415,7 @@ public class Method {
         return badgeView;
     }
 
+    //红点文字描述
     public static void topDesc(Context context, View view, String desc) {
         Object obj = view.getTag();
         BadgeView badgeView;
@@ -417,6 +434,7 @@ public class Method {
         badgeView.setBadgeMargin(75, 5, 0, 0);
     }
 
+    //上漂文字
     public static void tip(Activity activity, View view, String tip) {
         int size = 100;
         if (Config.display.density != 3) size = size * 55 / 100;
@@ -431,6 +449,7 @@ public class Method {
         floatingText.startFloating(view); // 传入一个View，FloatingText 就会相对于这个View执行漂浮效果
     }
 
+    //上漂文字(固定位置)
     public static void tipFixed(Activity activity, View view, String tip, int size) {
         if (Config.display.density != 3) size = size * 55 / 100;
         FloatingText floatingText = new FloatingText.FloatingTextBuilder(activity)
