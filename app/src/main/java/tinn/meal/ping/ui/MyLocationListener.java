@@ -29,6 +29,11 @@ public class MyLocationListener extends BDAbstractLocationListener implements IL
         this.auto = auto;
         myOrientationListener = new MyOrientationListener(context);
         initOritationListener();
+        myOrientationListener.start();
+    }
+
+    public void stop() {
+        myOrientationListener.stop();
     }
 
     @Override
@@ -100,7 +105,6 @@ public class MyLocationListener extends BDAbstractLocationListener implements IL
 //                baiduMap.setMyLocationConfigeration(config);
             }
         });
-        myOrientationListener.start();
     }
 
     protected ILoadListener loadListener;

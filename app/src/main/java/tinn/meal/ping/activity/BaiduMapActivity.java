@@ -57,8 +57,6 @@ public class BaiduMapActivity extends ChildActivity implements View.OnClickListe
         });
         LocationClientOption option = initLocation();
         locationClient.setLocOption(option);//将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
-        //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
-        mapView.onResume();
         //调用LocationClient的start()方法，便可发起定位请求
         locationClient.start();
     }
@@ -105,6 +103,30 @@ public class BaiduMapActivity extends ChildActivity implements View.OnClickListe
         //可选，设置是否需要过滤GPS仿真结果，默认需要，即参数为false
         option.setIsNeedAddress(true);
         return option;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
+        mapView.onDestroy();
+        locationClient.stop();
+        myListener.stop();
+        baiduMap.setMyLocationEnabled(false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
+        mapView.onPause();
     }
 
     @Override

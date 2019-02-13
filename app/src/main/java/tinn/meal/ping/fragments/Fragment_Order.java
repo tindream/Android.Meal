@@ -28,12 +28,6 @@ import tinn.meal.ping.support.AsyncListView;
 import tinn.meal.ping.support.ViewHolder;
 
 public class Fragment_Order extends Fragment_Base implements IListListener, ILoadListener {
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        SDKInitializer.initialize(getActivity().getApplicationContext());
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -50,6 +44,7 @@ public class Fragment_Order extends Fragment_Base implements IListListener, ILoa
     @Override
     protected void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
+        SDKInitializer.initialize(getActivity().getApplicationContext());
         List<SetInfo> list = new ArrayList();
         list.add(new SetInfo(getString(R.string.btn_location)));
         new AsyncListView().setListener(this, this).init(getActivity(), list, R.layout.item_report);
