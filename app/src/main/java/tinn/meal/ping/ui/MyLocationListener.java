@@ -1,5 +1,7 @@
 package tinn.meal.ping.ui;
 
+import android.content.Context;
+
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.BaiduMap;
@@ -15,12 +17,18 @@ import tinn.meal.ping.info.loadInfo.LoadInfo;
 import tinn.meal.ping.support.Method;
 
 public class MyLocationListener extends BDAbstractLocationListener implements IListener {
-    BaiduMap baiduMap;//定义地图实例
-    boolean auto = true;//判断
+    BaiduMap baiduMap;      //定义地图实例
+    boolean auto = true;    //判断
+    MyOrientationListener myOrientationListener;    //方向监听
+    double latitude;        //获取纬度信息
+    double longitude;       //获取经度信息
+    int mXDirection;        //方向
 
-    public void init(BaiduMap baiduMap, boolean auto) {
+    public void init(Context context, BaiduMap baiduMap, boolean auto) {
         this.baiduMap = baiduMap;
         this.auto = auto;
+        myOrientationListener = new MyOrientationListener(context);
+        initOritationListener();
     }
 
     @Override
@@ -28,12 +36,16 @@ public class MyLocationListener extends BDAbstractLocationListener implements IL
         //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
         //以下只列举部分获取经纬度相关（常用）的结果信息
         //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
-        double latitude = location.getLatitude();       //获取纬度信息
-        double longitude = location.getLongitude();     //获取经度信息
+        latitude = location.getLatitude();       //获取纬度信息
+        longitude = location.getLongitude();     //获取经度信息
         float radius = location.getRadius();            //获取定位精度，默认值为0.0f
         String coorType = location.getCoorType();       //获取经纬度坐标类型，以LocationClientOption中设置过的坐标类型为准
         String cityCode = location.getCityCode();
         Method.log(cityCode + "---" + latitude + "--" + longitude + "----" + coorType + "--" + location.getCountry() + "--" + location.getCity() + "--" + location.getAddrStr());
+        if (cityCode == null) {
+            onListener(LoadType.cancel);
+            return;
+        }
         //获取定位类型、定位错误返回码，具体信息可参照类参考中BDLocation类中的说明
 
           /*  // 构造定位数据
@@ -57,11 +69,38 @@ public class MyLocationListener extends BDAbstractLocationListener implements IL
 
         // 显示个人位置图标
         MyLocationData.Builder builder = new MyLocationData.Builder();
+        builder.direction(mXDirection);
         builder.latitude(latitude);
         builder.longitude(longitude);
         MyLocationData data = builder.build();
         baiduMap.setMyLocationData(data);
-        onListener(cityCode == null ? LoadType.cancel : LoadType.complete);
+        onListener(LoadType.complete);
+    }
+
+    /**
+     * 初始化方向传感器
+     */
+    private void initOritationListener() {
+        myOrientationListener.setOnOrientationListener(new MyOrientationListener.OnOrientationListener() {
+            @Override
+            public void onOrientationChanged(float x) {
+                mXDirection = (int) x;
+                if (latitude == 0 && longitude == 0) return;
+                // 构造定位数据
+                MyLocationData locData = new MyLocationData.Builder()
+                        // 此处设置开发者获取到的方向信息，顺时针0-360
+                        .direction(mXDirection)
+                        .latitude(latitude)
+                        .longitude(longitude).build();
+                // 设置定位数据
+                baiduMap.setMyLocationData(locData);
+                // 设置自定义图标
+//                BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory.fromResource(R.drawable.navi_map_gps_locked);
+//                MyLocationConfigeration config = new MyLocationConfigeration(mCurrentMode, true, mCurrentMarker);
+//                baiduMap.setMyLocationConfigeration(config);
+            }
+        });
+        myOrientationListener.start();
     }
 
     protected ILoadListener loadListener;

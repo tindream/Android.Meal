@@ -31,7 +31,7 @@ import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.Method;
 import tinn.meal.ping.support.ViewHolder;
 
-public class Fragment_My extends Fragment_Base implements View.OnClickListener, IListListener, ILoadListener {
+public class Fragment_My extends Fragment_Base implements IListListener, ILoadListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -138,12 +138,6 @@ public class Fragment_My extends Fragment_Base implements View.OnClickListener, 
                     }
                 });
                 break;
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
         }
     }
 }

@@ -56,7 +56,7 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
         super.load(R.id.home_context, R.id.home_load, R.id.home_text, false);
         getActivity().findViewById(R.id.home_minus).setOnClickListener(this);
         getActivity().findViewById(R.id.home_add).setOnClickListener(this);
-        getActivity().findViewById(R.id.home_btn).setOnClickListener(this);
+        getActivity().findViewById(R.id.home_login).setOnClickListener(this);
 
         List<GridInfo> list = new ArrayList();
         list.add(new GridInfo(R.drawable.ic_home, getString(R.string.nav_home)));
@@ -103,7 +103,7 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
             case R.id.home_add:
                 Method.ask(getActivity(), "Please Confirm Delete Item");
                 break;
-            case R.id.home_btn:
+            case R.id.home_login:
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 //将text框中的值传入
                 intent.putExtra("title", "日志");

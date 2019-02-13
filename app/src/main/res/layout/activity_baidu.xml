@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimary"
+        android:paddingBottom="1dp"
+        android:scrollX="3dp"
+        android:theme="?attr/actionBarTheme"
+        app:contentInsetStartWithNavigation="0dp"
+        app:navigationIcon="@drawable/ic_back_while"
+        app:title="@string/app_name"
+        app:titleMargin="0dp"
+        app:titleTextColor="@color/While" />
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/baidu_View"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:clickable="true" />
+
+    <TextView
+        android:id="@+id/baidu_location"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/selector_stroke_radiu_primary"
+        android:paddingLeft="50dp"
+        android:paddingTop="7dp"
+        android:paddingRight="50dp"
+        android:paddingBottom="7dp"
+        android:text="@string/btn_location"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/While"
+        android:textSize="@dimen/text18" />
+
+</LinearLayout>

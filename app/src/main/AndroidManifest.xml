@@ -45,6 +45,7 @@
         <activity android:name="tinn.meal.ping.activity.LoginActivity"></activity>
         <activity android:name="tinn.meal.ping.activity.NotificationActivity"></activity>
         <activity android:name="tinn.meal.ping.activity.ChartActivity"></activity>
+        <activity android:name="tinn.meal.ping.activity.BaiduMapActivity"></activity>
 
         <service
             android:name="com.baidu.location.f"
