@@ -1,4 +1,4 @@
-package tinn.meal.ping.ui;
+package tinn.meal.ping.support;
 
 import android.content.Context;
 
@@ -14,7 +14,6 @@ import tinn.meal.ping.enums.IListener;
 import tinn.meal.ping.enums.ILoadListener;
 import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
-import tinn.meal.ping.support.Method;
 
 public class MyLocationListener extends BDAbstractLocationListener implements IListener {
     BaiduMap baiduMap;      //定义地图实例

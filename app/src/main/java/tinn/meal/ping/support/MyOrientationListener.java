@@ -1,4 +1,4 @@
-package tinn.meal.ping.ui;
+package tinn.meal.ping.support;
 
 import android.content.Context;
 import android.hardware.Sensor;

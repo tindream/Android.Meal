@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
@@ -16,7 +15,7 @@ import tinn.meal.ping.R;
 import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.support.Method;
 import tinn.meal.ping.ui.ChildActivity;
-import tinn.meal.ping.ui.MyLocationListener;
+import tinn.meal.ping.support.MyLocationListener;
 
 public class BaiduMapActivity extends ChildActivity implements View.OnClickListener {
     MapView mapView = null; //地图
