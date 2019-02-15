@@ -15,7 +15,7 @@ public class AdminInfo {
     public String UserPwd = "meiling";
 
     public long UserId;
-    public int UserType;
+    public String Display;
 
     //同步pc设置
     //更新比较

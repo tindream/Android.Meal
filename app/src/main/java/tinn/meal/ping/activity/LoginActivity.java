@@ -82,6 +82,7 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
                     Cache.addNotified(eventInfo.Types);
                     LoginEventInfo login = new Gson().fromJson(info.Message, LoginEventInfo.class);
                     Config.Admin.UserId = login.UserId;
+                    Config.Admin.Display = login.Display;
                     new SQLiteServer().updateAdmin("UserId", Config.Admin.UserId);
 
                     Intent data = new Intent();

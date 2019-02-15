@@ -6,6 +6,7 @@ public class LoginEventInfo extends EventInfo {
 
     public long UserId;
     public String Name;
+    public String Display;
     public String Pad;
 
     public LoginEventInfo(String name, String pad) {

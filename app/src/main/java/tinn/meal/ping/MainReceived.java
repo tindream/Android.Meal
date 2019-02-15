@@ -10,6 +10,8 @@ import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.enums.requestType;
 import tinn.meal.ping.info.eventInfo.ErrorEventInfo;
 import tinn.meal.ping.info.eventInfo.EventInfo;
+import tinn.meal.ping.info.eventInfo.LoginAutoEventInfo;
+import tinn.meal.ping.info.eventInfo.LoginEventInfo;
 import tinn.meal.ping.support.Cache;
 import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.Method;
@@ -23,6 +25,8 @@ public class MainReceived extends MainBaseActivity {
             Cache.addNotified(eventInfo.Types);
             switch (eventInfo.Types) {
                 case AutoLogin:
+                    LoginEventInfo login = new Gson().fromJson(msg, LoginEventInfo.class);
+                    Config.Admin.Display = login.Display;
                     //Method.startNotification(1, "Received", "AutoLogin");
                     break;
                 case Error:

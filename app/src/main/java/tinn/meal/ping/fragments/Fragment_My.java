@@ -66,7 +66,7 @@ public class Fragment_My extends Fragment_Base implements IListListener, ILoadLi
     public void loadUser() {
         if (!isFirstVisible) return;
         TextView textView = getActivity().findViewById(R.id.my_name);
-        textView.setText(Config.Admin.UserId + "");
+        textView.setText(Config.Admin.Display);
     }
 
     @Override
