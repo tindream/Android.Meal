@@ -8,6 +8,7 @@ import com.google.gson.JsonSyntaxException;
 import tinn.meal.ping.activity.LoginActivity;
 import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.enums.requestType;
+import tinn.meal.ping.fragments.Fragment_My;
 import tinn.meal.ping.info.eventInfo.ErrorEventInfo;
 import tinn.meal.ping.info.eventInfo.EventInfo;
 import tinn.meal.ping.info.eventInfo.LoginAutoEventInfo;
@@ -27,6 +28,8 @@ public class MainReceived extends MainBaseActivity {
                 case AutoLogin:
                     LoginEventInfo login = new Gson().fromJson(msg, LoginEventInfo.class);
                     Config.Admin.Display = login.Display;
+                    Fragment_My Fragment_my = (Fragment_My) fragmentList.get(3);
+                    Fragment_my.loadUser();
                     //Method.startNotification(1, "Received", "AutoLogin");
                     break;
                 case Error:
