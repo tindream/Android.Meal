@@ -2,6 +2,7 @@ package tinn.meal.ping.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +11,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.ObservableEmitter;
 import tinn.meal.ping.activity.LoginActivity;
 import tinn.meal.ping.R;
+import tinn.meal.ping.activity.WebActivity;
 import tinn.meal.ping.data.SQLiteServer;
 import tinn.meal.ping.enums.IListListener;
 import tinn.meal.ping.enums.ILoadListener;
@@ -55,10 +58,12 @@ public class Fragment_My extends Fragment_Base implements IListListener, ILoadLi
         list.add(new SetInfo(R.drawable.ic_home, getString(R.string.nav_home)));
         list.add(new SetInfo(R.drawable.ic_report, getString(R.string.nav_report)));
         list.add(new SetInfo(R.drawable.ic_order, getString(R.string.nav_order)));
-        list.add(new SetInfo(R.drawable.ic_my, getString(R.string.nav_my)));
         list.add(new SetInfo(null));
-        list.add(new SetInfo(0, "退出"));
-        list.add(new SetInfo(0, "关闭"));
+        list.add(new SetInfo(0, getString(R.string.btn_log)));
+        list.add(new SetInfo(0, getString(R.string.nav_about), getString(R.string.version)));
+        list.add(new SetInfo(null));
+        list.add(new SetInfo(0, getString(R.string.btn_logout)));
+        list.add(new SetInfo(0, getString(R.string.btn_close)));
         new AsyncListView().setListener(this, this).init(getActivity(), list, R.layout.item_set);
         super.load(R.id.my_context, R.id.my_load, R.id.my_text, true);
     }
@@ -85,9 +90,11 @@ public class Fragment_My extends Fragment_Base implements IListListener, ILoadLi
         SetInfo obj = (SetInfo) object;
 
         emitter.onNext(new LoaderInfo(LoadType.setText, holder, R.id.set_name, obj.Message));
+        emitter.onNext(new LoaderInfo(LoadType.setText, holder, R.id.set_desc, obj.desc));
         emitter.onNext(new LoaderInfo(LoadType.setImageId, holder, R.id.set_img, obj.imageId));
         if (obj.iHeard) {
             emitter.onNext(new LoaderInfo(LoadType.setLine, holder, R.id.set_name, ""));
+            emitter.onNext(new LoaderInfo(LoadType.setLine, holder, R.id.set_desc, ""));
         }
     }
 
@@ -118,13 +125,24 @@ public class Fragment_My extends Fragment_Base implements IListListener, ILoadLi
                     if (setInfo.iHeard) return;
                     TextView set_name = view.findViewById(R.id.set_name);
                     switch (setInfo.Message) {
+                        case "日志":
+                            Intent intent = new Intent(getActivity(), WebActivity.class);
+                            //将text框中的值传入
+                            intent.putExtra("title", "日志");
+                            File file = new File(Environment.getExternalStorageDirectory(), "/Meal/log.txt");
+                            intent.putExtra("file", "file://" + file.toString());
+                            startActivity(intent);
+                            break;
+                        case "关于":
+                            Method.show(getActivity());
+                            break;
                         case "退出":
                             Method.ask(getActivity(), "Confirm Logout").setListener(obj -> {
                                 if (obj.Types == LoadType.confirm) {
                                     Config.Admin.UserId = 0;
                                     new SQLiteServer().updateAdmin("UserId", Config.Admin.UserId);
-                                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                                    startActivityForResult(intent, requestType.loginUpdate);
+                                    Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+                                    startActivityForResult(loginIntent, requestType.loginUpdate);
                                 }
                             });
                             break;

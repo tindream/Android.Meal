@@ -35,7 +35,7 @@
             android:id="@+id/my_listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/While"
+            android:background="@color/colorGray"
             android:divider="@color/colorGray"
             android:dividerHeight="1dp"
             android:listSelector="@drawable/selector_listview"

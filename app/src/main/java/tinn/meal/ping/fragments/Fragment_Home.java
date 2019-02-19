@@ -56,7 +56,6 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
         super.load(R.id.home_context, R.id.home_load, R.id.home_text, false);
         getActivity().findViewById(R.id.home_minus).setOnClickListener(this);
         getActivity().findViewById(R.id.home_add).setOnClickListener(this);
-        getActivity().findViewById(R.id.home_login).setOnClickListener(this);
 
         List<GridInfo> list = new ArrayList();
         list.add(new GridInfo(R.drawable.ic_home, getString(R.string.nav_home)));
@@ -98,18 +97,17 @@ public class Fragment_Home extends Fragment_Base implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.home_minus:
-                Method.show(getActivity());
+                TextView textView = getActivity().findViewById(R.id.home_value);
+                int value = Integer.parseInt(textView.getText().toString());
+                value--;
+                if (value < 0) value = 0;
+                textView.setText(value + "");
                 break;
             case R.id.home_add:
-                Method.ask(getActivity(), "Please Confirm Delete Item");
-                break;
-            case R.id.home_login:
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                //将text框中的值传入
-                intent.putExtra("title", "日志");
-                File file = new File(Environment.getExternalStorageDirectory(), "/Meal/log.txt");
-                intent.putExtra("file", "file://" + file.toString());
-                startActivity(intent);
+                textView = getActivity().findViewById(R.id.home_value);
+                value = Integer.parseInt(textView.getText().toString());
+                value++;
+                textView.setText(value + "");
                 break;
         }
     }
