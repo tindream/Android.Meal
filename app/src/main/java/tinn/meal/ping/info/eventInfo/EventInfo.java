@@ -9,7 +9,6 @@ import tinn.meal.ping.support.Method;
 
 public class EventInfo extends LoadInfo {
 
-    public boolean Result;
     public Date date;
 
     public EventInfo() {

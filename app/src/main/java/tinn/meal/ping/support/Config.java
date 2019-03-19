@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.util.DisplayMetrics;
 
+import org.eclipse.paho.android.service.MqttAndroidClient;
+
 import java.util.Currency;
 import java.util.Locale;
 
 import tinn.meal.ping.info.sqlInfo.AdminInfo;
+import tinn.meal.ping.mqtt.MQTTService;
+import tinn.meal.ping.mqtt.MyServiceConnection;
 import tinn.meal.ping.view.View_Base;
 
 public class Config {
@@ -15,6 +19,12 @@ public class Config {
     public static final String Loading = "Loading...";
     public static final String Suffix = "FatturaPaA*";
     public static final String None = "None";
+    public final static String DbName = "dininglc";
+    public final static int Port = 8087;
+    public final static int MPort = 8088;
+    public final static String Host = "47.254.135.116";
+    public final static String DbUserName = "meiling";
+    public final static String DbPassword = "meiling";
 
     public static AdminInfo Admin = new AdminInfo();
     public static View_Base view_base;
@@ -22,8 +32,14 @@ public class Config {
 
     public static Activity context;
     public static String currency;
-    public static TcpClient client;
     public static DisplayMetrics display;
+
+    //MQTT
+    public static String Topic = "AndroidMeal";             //MQTT订阅的主题
+    public static String ClientId;                          //MQTT客户端标识
+    public static MqttAndroidClient mqttClient;             //MQTT客户端
+    public static MQTTService mqttService;                  //MQTT客户端服务
+    public static MyServiceConnection serviceConnection;    //MQTT连接
 
     public static void load(Activity activity) {
         display = Method.getDisplay(activity);
@@ -31,6 +47,5 @@ public class Config {
     }
 
     public static void load() {
-        client = new TcpClient();
     }
 }

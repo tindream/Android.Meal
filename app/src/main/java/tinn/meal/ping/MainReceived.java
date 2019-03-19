@@ -6,12 +6,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
 import tinn.meal.ping.activity.LoginActivity;
+import tinn.meal.ping.data.SQLiteServer;
 import tinn.meal.ping.enums.LoadType;
 import tinn.meal.ping.enums.requestType;
 import tinn.meal.ping.fragments.Fragment_My;
 import tinn.meal.ping.info.eventInfo.ErrorEventInfo;
 import tinn.meal.ping.info.eventInfo.EventInfo;
-import tinn.meal.ping.info.eventInfo.LoginAutoEventInfo;
 import tinn.meal.ping.info.eventInfo.LoginEventInfo;
 import tinn.meal.ping.support.Cache;
 import tinn.meal.ping.support.Config;
@@ -20,12 +20,11 @@ import tinn.meal.ping.support.Method;
 public class MainReceived extends MainBaseActivity {
     protected void received(String msg) {
         try {
-            if (msg.equals("hello,world")) return;
             EventInfo eventInfo = new Gson().fromJson(msg, EventInfo.class);
             if (eventInfo == null) return;
             Cache.addNotified(eventInfo.Types);
             switch (eventInfo.Types) {
-                case AutoLogin:
+                case Login:
                     LoginEventInfo login = new Gson().fromJson(msg, LoginEventInfo.class);
                     Config.Admin.Display = login.Display;
                     Fragment_My Fragment_my = (Fragment_My) fragmentList.get(3);
@@ -34,9 +33,10 @@ public class MainReceived extends MainBaseActivity {
                     break;
                 case Error:
                     ErrorEventInfo error = new Gson().fromJson(msg, ErrorEventInfo.class);
-                    if (error.FromTypes == LoadType.AutoLogin) {
+                    if (error.FromTypes == LoadType.Login) {
                         Method.confirm(this, error.Message).setListener(obj -> {
                             Config.Admin.UserId = 0;
+                            new SQLiteServer().updateAdmin("UserId", Config.Admin.UserId);
                             Intent intent = new Intent(this, LoginActivity.class);
                             startActivityForResult(intent, requestType.loginUpdate);
                         });
@@ -44,7 +44,8 @@ public class MainReceived extends MainBaseActivity {
                     break;
             }
         } catch (JsonSyntaxException e) {
-            if (!msg.equals("hello,world")) Method.log(msg);
+            Method.log(msg);
+            Method.startNotification(11, "测试", msg);
         } catch (Exception e) {
             Method.log(e);
         }

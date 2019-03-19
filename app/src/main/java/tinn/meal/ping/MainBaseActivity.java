@@ -1,5 +1,6 @@
 package tinn.meal.ping;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Rect;
@@ -26,6 +27,8 @@ import tinn.meal.ping.fragments.Fragment_My;
 import tinn.meal.ping.fragments.Fragment_Order;
 import tinn.meal.ping.fragments.Fragment_Report;
 import tinn.meal.ping.info.loadInfo.LoadInfo;
+import tinn.meal.ping.mqtt.MQTTService;
+import tinn.meal.ping.mqtt.MyServiceConnection;
 import tinn.meal.ping.support.Config;
 import tinn.meal.ping.support.FragmentAdapter;
 import tinn.meal.ping.support.Method;
@@ -84,14 +87,18 @@ public class MainBaseActivity extends BaseActivity implements ViewPager.OnPageCh
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == requestType.loginResult) {
-            if (requestCode == requestType.login) {
-                Bundle bundle = data.getExtras();  //取得来自子窗口的数据模块
-                String userId = bundle.getString("UserId");
-                initFragmentsOther();
-                onReady(new LoadInfo(LoadType.home));
-            } else if (requestCode == requestType.loginUpdate) {
-                Fragment_My Fragment_my = (Fragment_My) fragmentList.get(3);
-                Fragment_my.loadUser();
+            Config.serviceConnection.setListener(this);
+            switch (requestCode) {
+                case requestType.login:
+                    Bundle bundle = data.getExtras();  //取得来自子窗口的数据模块
+                    String userId = bundle.getString("UserId");
+                    initFragmentsOther();
+                    onReady(new LoadInfo(LoadType.home));
+                    break;
+                case requestType.loginUpdate:
+                    Fragment_My Fragment_my = (Fragment_My) fragmentList.get(3);
+                    Fragment_my.loadUser();
+                    break;
             }
         }
     }
@@ -100,9 +107,12 @@ public class MainBaseActivity extends BaseActivity implements ViewPager.OnPageCh
         switch (info.Types) {
             case load:
                 Config.load();
-                Config.client.setListener(this);
+                Config.serviceConnection = new MyServiceConnection();
+                Config.serviceConnection.setListener(MainBaseActivity.this);
+                Intent intent = new Intent(Config.context, MQTTService.class);
+                bindService(intent, Config.serviceConnection, Context.BIND_AUTO_CREATE);
                 if (Config.Admin.UserId == 0) {
-                    Intent intent = new Intent(this, LoginActivity.class);
+                    intent = new Intent(this, LoginActivity.class);
                     //为了接受SecondActivity中的值，不用startActivity(intent)
                     startActivityForResult(intent, requestType.login);
                 } else {
@@ -122,6 +132,11 @@ public class MainBaseActivity extends BaseActivity implements ViewPager.OnPageCh
         }
     }
 
+    @Override
+    public void onDestroy() {
+        unbindService(Config.serviceConnection);
+        super.onDestroy();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

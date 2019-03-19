@@ -78,8 +78,10 @@ public class Fragment_My extends Fragment_Base implements IListListener, ILoadLi
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == requestType.loginResult) {
-            if (requestCode == requestType.loginUpdate) {
-                loadUser();
+            switch (requestCode) {
+                case requestType.loginUpdate:
+                    loadUser();
+                    break;
             }
         }
     }

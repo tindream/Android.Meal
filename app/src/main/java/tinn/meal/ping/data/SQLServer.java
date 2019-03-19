@@ -221,9 +221,9 @@ public class SQLServer {
     // 连接
     public static Connection getSQLConnection() throws Exception {
         Class.forName("net.sourceforge.jtds.jdbc.Driver");//加载驱动换成这个
-        String connectDB = "jdbc:jtds:sqlserver://" + Config.Admin.Host + ":1433/" + Config.Admin.DbName +// 连接字符串换成这个
+        String connectDB = "jdbc:jtds:sqlserver://" + Config.Host + ":1433/" + Config.DbName +// 连接字符串换成这个
                 ";useunicode=true;characterEncoding=UTF-8";//防止中文乱码
-        Connection con = DriverManager.getConnection(connectDB, Config.Admin.UserName, Config.Admin.UserPwd);// 连接数据库对象
+        Connection con = DriverManager.getConnection(connectDB, Config.DbUserName, Config.DbPassword);// 连接数据库对象
         Method.log("连接数据库成功");
         return con;
     }

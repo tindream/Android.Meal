@@ -37,5 +37,4 @@ public enum LoadType {
 
     Error,
     Login,
-    AutoLogin,
 }

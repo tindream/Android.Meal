@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="tinn.meal.ping">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- 这个权限用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
     <!-- 这个权限用于访问GPS定位-->
@@ -51,6 +52,9 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote"></service>
+        <!-- Mqtt服务 -->
+        <service android:name="tinn.meal.ping.mqtt.MQTTService" />
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
     </application>
 
 </manifest>

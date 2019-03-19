@@ -33,7 +33,7 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
         super.layoutResID = R.layout.activity_login;
         super.onCreate(savedInstanceState);
         try {
-            Config.client.setListener(this);
+            Config.serviceConnection.setListener(this);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             }
@@ -54,9 +54,9 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_btn:
-                String user = getValue(R.id.login_user);
-                String pad = getValue(R.id.login_pad);
-                Config.client.send(new LoginEventInfo(user, Method.EncryptMD5(pad + Config.Suffix)));
+                Config.Admin.Name = getValue(R.id.login_user);
+                Config.Admin.Pad = Method.EncryptMD5(getValue(R.id.login_pad) + Config.Suffix);
+                Config.mqttService.Connection();
                 TextView btn = findViewById(R.id.login_btn);
                 btn.setText(Config.Loading);
                 break;
@@ -74,7 +74,7 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
                 }
                 return;
             }
-            if (info.Message == null || info.Message.equals("hello,world")) return;
+            if (info.Message == null) return;
             EventInfo eventInfo = new Gson().fromJson(info.Message, EventInfo.class);
             if (eventInfo == null) return;
             switch (eventInfo.Types) {
@@ -94,10 +94,13 @@ public class LoginActivity extends ChildActivity implements View.OnClickListener
                     break;
                 case Error:
                     ErrorEventInfo error = new Gson().fromJson(info.Message, ErrorEventInfo.class);
-                    if (error.FromTypes == LoadType.Login) {
-                        TextView btn = findViewById(R.id.login_btn);
-                        btn.setText(R.string.btn_login);
-                        Method.hit(this, error.Message);
+                    switch (error.FromTypes) {
+                        case Login:
+                        case connect:
+                            TextView btn = findViewById(R.id.login_btn);
+                            btn.setText(R.string.btn_login);
+                            Method.hit(this, error.Message);
+                            break;
                     }
                     break;
             }
