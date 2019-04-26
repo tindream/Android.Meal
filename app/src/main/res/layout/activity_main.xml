@@ -14,7 +14,8 @@
         android:paddingLeft="12dp"
         android:theme="?attr/actionBarTheme"
         app:title="@string/app_name"
-        app:titleTextColor="@color/While" />
+        app:titleTextColor="@color/While"
+        tools:ignore="MissingConstraints" />
 
     <tinn.meal.ping.ui.CustomViewPager
         android:id="@+id/mainViewPager"
