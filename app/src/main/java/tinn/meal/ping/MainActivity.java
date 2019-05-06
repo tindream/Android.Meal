@@ -20,7 +20,6 @@ public class MainActivity extends MainReceived {
         CrashHandlers.getInstance().init();
         super.layoutResID = R.layout.activity_main;
         super.onCreate(savedInstanceState);
-        Config.context = this;
         new AsyncLoad().setListener(this);
         initFragmentsHome();
         String[] permissions = new String[]{

@@ -131,7 +131,7 @@ public class Fragment_My extends Fragment_Base implements IListListener, ILoadLi
                             Intent intent = new Intent(getActivity(), WebActivity.class);
                             //将text框中的值传入
                             intent.putExtra("title", "日志");
-                            File file = new File(Environment.getExternalStorageDirectory(), "/Meal/log.txt");
+                            File file = new File(Config.file.getPath(), "log.txt");
                             intent.putExtra("file", "file://" + file.toString());
                             startActivity(intent);
                             break;

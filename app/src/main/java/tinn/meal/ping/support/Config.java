@@ -2,10 +2,12 @@ package tinn.meal.ping.support;
 
 import android.app.Activity;
 import android.content.res.ColorStateList;
+import android.os.Environment;
 import android.util.DisplayMetrics;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 
+import java.io.File;
 import java.util.Currency;
 import java.util.Locale;
 
@@ -33,6 +35,7 @@ public class Config {
     public static Activity context;
     public static String currency;
     public static DisplayMetrics display;
+    public static File file;
 
     //MQTT
     public static String Topic = "AndroidMeal";             //MQTT订阅的主题
@@ -42,6 +45,9 @@ public class Config {
     public static MyServiceConnection serviceConnection;    //MQTT连接
 
     public static void load(Activity activity) {
+        Config.context = activity;
+        file = new File(Environment.getExternalStorageDirectory(), "/Tinn/Meal");
+        if (!file.exists()) file.mkdirs();
         display = Method.getDisplay(activity);
         currency = Currency.getInstance(Locale.GERMANY).getSymbol(Locale.GERMANY);
     }

@@ -140,7 +140,7 @@ public class Method {
 
     // 調用系統方法分享文件
     public static void shareFile(Context context) {
-        File file = new File(Environment.getExternalStorageDirectory(), "/Meal/log.txt");
+        File file = new File(Config.file.getPath(), "log.txt");
         if (file.exists()) {
             Intent share = new Intent(Intent.ACTION_SEND);
             share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
@@ -537,11 +537,7 @@ public class Method {
         Log.e(Config.Text, msg.toString());
         FileWriter writer = null;
         try {
-            File file = new File(Environment.getExternalStorageDirectory(), "/Meal");
-            if (!file.exists()) {
-                file.mkdirs();
-            }
-            file = new File(file.getPath(), "/log.txt");
+            File file = new File(Config.file.getPath(), "log.txt");
             writer = new FileWriter(file, true);
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             writer.write(format.format(new Date(System.currentTimeMillis())) + ": " + msg + "\r\n");
