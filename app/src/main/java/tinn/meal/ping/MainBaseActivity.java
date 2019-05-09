@@ -2,6 +2,7 @@ package tinn.meal.ping;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
@@ -39,6 +40,17 @@ public class MainBaseActivity extends BaseActivity implements ViewPager.OnPageCh
     protected List<Fragment> fragmentList = new ArrayList<Fragment>();
     //菜单
     private PopupWindow mPopupWindow;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        //通过requestCode来识别是否同一个请求
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //用户同意，执行操作
+                Config.load(this);
+            }
+        }
+    }
 
     @Override
     public void onReady(LoadInfo info) {
