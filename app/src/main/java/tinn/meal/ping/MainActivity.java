@@ -15,8 +15,8 @@ import tinn.meal.ping.ui.View_Navigation;
 public class MainActivity extends MainReceived {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Method.log("Version=" + this.getString(R.string.version));
         Config.load(this);
+        Method.log("Version=" + this.getString(R.string.version));
         CrashHandlers.getInstance().init();
         super.layoutResID = R.layout.activity_main;
         super.onCreate(savedInstanceState);
